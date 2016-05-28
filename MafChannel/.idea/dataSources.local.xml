@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - imcs_dev@10.58.174.14" uuid="38c00e55-1309-43cc-b7b9-f2e3f59a9c27">
+      <secret-storage>master_key</secret-storage>
+      <user-name>da</user-name>
+      <schema-pattern>imcs_dev.*</schema-pattern>
+      <default-schemas>imcs_dev.*</default-schemas>
+    </data-source>
+  </component>
+</project>

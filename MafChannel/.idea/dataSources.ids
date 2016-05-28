@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - imcs_dev@10.58.174.14" uuid="38c00e55-1309-43cc-b7b9-f2e3f59a9c27">
+    <database-info product="MySQL" version="5.1.63-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="imcs_dev"/>
+    <table name="auto_distribution_algorithm_chain" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="client_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5p2l5rqQ57G75Yir77yM5Y+C6ICDRVVzZXJDbGllbnRUeXBl"/>
+      <column name="algorithm_info_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6Ieq5Yqo5YiG6YWN566X5rOVSUQ="/>
+      <column name="seq" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5bqP5YiX5Y+3"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="auto_distribution_algorithm_info" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="566X5rOV5ZCN56ew"/>
+      <column name="description" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="566X5rOV5o+P6L+w"/>
+      <column name="class_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="566X5rOV5a+55bqU55qE57G75ZCN"/>
+      <column name="algorithm_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="566X5rOV57G75Z6L"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="auto_reply" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="enabled" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" remarks="5piv5ZCm5ZCv55So"/>
+      <column name="reply_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Zue5aSN57G75Z6L"/>
+      <column name="message" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="5Zue5aSN5YaF5a65"/>
+      <column name="policy_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Zue5aSN562W55Wl5Li76ZSu"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="auto_reply_policy" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6Ieq5Yqo5Zue5aSN562W55Wl5ZCN"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="business_order" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LyB5LiaSUQ="/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5LqL5Yqh5Y2V57G75Z6LKEhJ5YWs5LyX5Y+3L+W+ruS/oeWFrOS8l+WPty/nlLXor50v6YKu5Lu2Ly4uKQ=="/>
+      <column name="customer_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="57O757uf55So5oi3SUQ="/>
+      <column name="order_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5LqL5Yqh5Y2V54q25oCB"/>
+      <column name="service_status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5pyN5Yqh54q25oCB"/>
+      <column name="score" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5LqL5Yqh5Y2V6K+E5YiG"/>
+      <column name="start_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LqL5Yqh5Y2V5byA5aeL5pe26Ze0"/>
+      <column name="end_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LqL5Yqh5Y2V57uT5p2f5pe26Ze0"/>
+      <column name="queue_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LqL5Yqh5Y2V5byA5aeL5o6S6Zif5pe26Ze0"/>
+      <column name="manual_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LqL5Yqh5Y2V6L+b5YWl5Lq65bel5pe26Ze0"/>
+      <column name="title" sqlType="VARCHAR" precision="250" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5LqL5Yqh5Y2V5qCH6aKY"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="customer" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="im_id" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" remarks="SU1QbHVzIGFjY291bnRJRA=="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6K6/5a6i5ZCN56ew"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6K6/5a6i54q25oCBOjAgd2FpdCAxIGFjdGl2ZSAyIGluYWN0aXZl"/>
+      <column name="mobile" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12" remarks="6K6/5a6i5omL5py6"/>
+      <column name="description" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12" remarks="6K6/5a6i5o+P6L+w"/>
+      <column name="device" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6K6/5a6i6K6+5aSH"/>
+      <column name="region" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6K6/5a6i5Yy65Z+f"/>
+      <column name="keywords" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="5aSH5rOo"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5aSH5rOo"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5aSH5rOo"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="57O757uf55So5oi3SUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="customer_region" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="no" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="57yW5Y+3"/>
+      <column name="parent_no" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="54i25Yy65Z+f57yW5Y+3"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="5ZCN56ew"/>
+      <column name="description" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5o+P6L+w"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5pyA5ZCO5L+u5pS55pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="customer_stat" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="customer_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6K6/5a6iSUQ="/>
+      <column name="order_count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5LqL5Yqh5Y2V5pWw"/>
+      <column name="last_order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LiK5qyh5LqL5Yqh5Y2V"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="domain_client_mapping" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="5ZCN56ew"/>
+      <column name="mapped_app_key" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="57O757uf55Sf5oiQ5ZSv5LiA77yM5aGr5Yiw5a6i5oi35raI5oGv57O757uf55qE6YWN572u6YeMO+S+i+WmgmJhaWR1IGhp5ZyodXJs5LiK"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="57G75Z6L77yM5aaCMSBiYWlkdSDmnI3liqHlj7c="/>
+      <column name="conf" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12" remarks="5YW35L2T5YaF5a6577yM5beybWFw5b2i5byP5a2Y5YKo"/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5pyN57uE5oiW5a6i5pyNSUQ="/>
+      <column name="desc" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="5o+P6L+w"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="domain_email_mapping" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="6YKu566x5Zyw5Z2A"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="6YKu566x5ZCN56ew"/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5pyN57uE5oiW5a6i5pyNSUQ="/>
+      <column name="is_default" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="5piv5ZCm6buY6K6k6YKu566x77yMMeaYr++8jDDkuI3mmK8="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="email_attach" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="mail_detail_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6YKu5Lu26K+m5oOFaWQ="/>
+      <column name="attach_name" sqlType="VARCHAR" precision="500" scale="0" nullable="false" jdbcType="12" remarks="6ZmE5Lu25ZCN56ew"/>
+      <column name="mail_attach_url" sqlType="VARCHAR" precision="1000" scale="0" nullable="false" jdbcType="12" remarks="6YKu5Lu26ZmE5Lu25a2Y5YKo6Lev5b6E"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="email_detail" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="mail_id" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6YKu5Lu25YWz6IGU55qE6K6i5Y2VSUQ="/>
+      <column name="from_addr" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="6YKu5Lu25Y+R6YCB5pa55Zyw5Z2A"/>
+      <column name="from_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="6YKu5Lu25Y+R6YCB5pa55aeT5ZCN"/>
+      <column name="cc_addr" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="6YKu5Lu25Lit6L2s5pa55Zyw5Z2A"/>
+      <column name="to_addr" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="6YKu5Lu25o6l5pS25pa55Zyw5Z2A"/>
+      <column name="send_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="5Y+R6YCB5pe26Ze0"/>
+      <column name="subject" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="6YKu5Lu25Li76aKY"/>
+      <column name="content" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="6YKu5Lu25YaF5a65"/>
+      <column name="size" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YKu5Lu25aSn5bCP"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fnd_app_domain" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="full_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="short_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_email" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_pass" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_name" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="admin_mobile" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="app_email" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" remarks="5YiG6YWN55qE5LyB5Lia6YKu566x5Zyw5Z2A"/>
+      <column name="admin_user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="email_verify_id" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="MCDnrYnlvoXpgq7ku7bmv4DmtLsgMeetieW+heeUteivnea/gOa0uyAy5bey5r+A5rS7"/>
+      <column name="domain_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <column name="app_client_mapping_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="admin_email_UNIQUE" unique="true" columns="admin_email"/>
+    </table>
+    <table name="fnd_role" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="MSDns7vnu5/mj5DkvpvkuI3lj6/liKA7MiDnlKjmiLfoh6rlu7o="/>
+      <column name="code" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6KeS6Imy57yW56CB"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" remarks="6KeS6Imy5ZCN56ew"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5pyA5ZCO5L+u5pS55pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fnd_user" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LyB5LiaSUQ="/>
+      <column name="username" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55So5oi35ZCN77yI6YKu566x77yJ"/>
+      <column name="password" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5a+G56CB"/>
+      <column name="mobile" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5omL5py65Y+3"/>
+      <column name="email" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="6YKu566x5Zyw5Z2A"/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5aeT5ZCN"/>
+      <column name="nick_name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5pi156ew"/>
+      <column name="head_image_url" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55So5oi35aS05YOPVVJM"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="55So5oi354q25oCB"/>
+      <column name="root" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="5piv5ZCm5piv6LaF57qn566h55CG5ZGY77yMMeaYr++8jDDkuI3mmK8="/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO5pu05paw5pe26Ze0"/>
+      <column name="last_login_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO55m76ZmG5pe26Ze0"/>
+      <column name="last_client_setting_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="55So5oi35b2T5YmN5omA5Zyo5a6i5oi356uv"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="55So5oi357G75Z6L77yM5aaC5a6i5pyN5oiW6ICF6K6/5a6i"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fnd_user_role_assoc" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="55So5oi3SUQ="/>
+      <column name="role_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="6KeS6ImySUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="knowledge_compound" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="data_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="57uE5Lu25pWw5o2u57G75Z6LLDHmmK/mlofmnKw="/>
+      <column name="data_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="5oyH5a6a57G75Z6L57uE5Lu26KGo5Lit55qESUTvvIjlpoLmlofmnKzvvIk="/>
+      <column name="part_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="57uE5Lu25YaF5a6557G75Z6L77yM5aaC566A5LuL"/>
+      <column name="parent_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6D5omA5bGe55qE6Zeu6aKY5oiW562U5qGISUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="knowledge_issue_answer" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="answer_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="6Zeu6aKY562U5qGI57G75Z6LLDHmmK/mlofmnKw="/>
+      <column name="answer_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="562U5qGI5Zyo5oyH5a6a57G75Z6L562U5qGI6KGo5Lit55qESUTvvIjnrZTmoYjmjInnsbvlnovlu7rooajvvIzlpoLmlofmnKzvvIk="/>
+      <column name="index_content_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" remarks="5omA5pyJ6Zeu6aKY5Zyo5paH5pys6KGo5Lit55qESUQ="/>
+      <column name="knowledge_type_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6D5piv5ZOq5Liq55+l6K+G57G75Z6L55qE562U5qGI"/>
+      <column name="is_enable" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ==" remarks="562U5qGI5piv5ZCm5ZCv55So77yMMeWQr+eUqO+8jDDmnKrlkK/nlKg="/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO5pu05paw5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="knowledge_issue_title" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="issue_answer_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6Zeu6aKY5a+55bqU562U5qGIaWQ="/>
+      <column name="title_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ==" remarks="6Zeu6aKY57G75Z6LLDHmmK/mlofmnKw="/>
+      <column name="title_id" sqlType="BIGINT" precision="19" scale="0" nullable="true" jdbcType="-5" def="MA==" remarks="6Zeu6aKY5Zyo5oyH5a6a57G75Z6L6Zeu6aKY6KGo5Lit55qESUTvvIjpl67popjmjInnsbvlnovlu7rooajvvIzlpoLmlofmnKzvvIk="/>
+      <column name="is_main" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="6Zeu6aKY5piv5ZCm5piv5qCH5YeG5o+P6L+w"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO5pu05paw5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="knowledge_text" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="text" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="5paH5pys5YaF5a65"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="knowledge_type" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55+l6K+G57G75Z6L5ZCN"/>
+      <column name="parent_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6D55qE54i257G75Z6LSUTvvIwtMeS4uumhtuWxgue7k+eCuQ=="/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO5pu05paw5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="m_session" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="54q25oCBOjAgd2FpdCAxIGFjdGl2ZSAyIGluYWN0aXZl"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="customer_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6K6/5a6iSUQ="/>
+      <column name="session_id" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" remarks="SU1QbHVz5Lya6K+d5Li7SUQ="/>
+      <column name="order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6K6i5Y2V5Y+3"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="m_session_service_account" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="business_order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LqL5Yqh5Y2VSUQ="/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5pyN6LSm5Y+3SUQ="/>
+      <column name="join_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yqg5YWl5pe26Ze0"/>
+      <column name="exit_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="56a75byA5pe26Ze0"/>
+      <column name="join_way" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Yqg5YWl5pa55byP"/>
+      <column name="exit_way" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="56a75byA5pa55byP"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="56a75byA5pe25LqL5Yqh5Y2V54q25oCB"/>
+      <column name="source_service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6L2s5o6l5pe255qE5Y6f5a6i5pyN"/>
+      <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5aSH5rOo"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="official_accounts_subscribe" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="source_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="ZG9tYWluX2NsaW5ldF9tYXBwaW5nIGlk"/>
+      <column name="client_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="robot_setting" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5py65Zmo5Lq65pi156ew"/>
+      <column name="head_image" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5Zu+6LGhVVJM"/>
+      <column name="enable" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA==" remarks="6K6+572u5piv5ZCm5ZCv55So"/>
+      <column name="wel_txt" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5qyi6L+O6K+N"/>
+      <column name="unkonw_txt" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5YW25a6D5Zue5aSN"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="service_account" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LyB5LiaSUQ="/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="57O757uf55So5oi3SUQ="/>
+      <column name="name" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="55So5oi35ZCN56ew"/>
+      <column name="im_id" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="SU0r5bGCYWNjb3VudGlkX2FwcGlk"/>
+      <column name="auto_dist_limit" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="6Ieq5Yqo5YiG6YWN55qE5pWw55uu6ZmQ5Yi2"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5a6i5pyN54q25oCB"/>
+      <column name="region_no" sqlType="VARCHAR" precision="45" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5Yy65Z+f57yW56CB"/>
+      <column name="desc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="5a6i5pyN57uE5o+P6L+w"/>
+      <column name="type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="57G75Z6L77yI5a6i5pyNL+Wuouacjee7hO+8iQ=="/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5a6i5pyN5biQ5Y+35Yib5bu65pe26Ze0"/>
+      <column name="last_update_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LiK5qyh5pu05paw5pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="service_account_group_assoc" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LyB5LiaSUQ="/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5a6i5pyN5biQ5Y+3SUQ="/>
+      <column name="group_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5a6i5pyN57uESUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="service_account_stat" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5LyB5LiaSUQ="/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5a6i5pyN6LSm5Y+3SUQ="/>
+      <column name="last_auto_dist_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA5ZCO5LiA5qyh6Ieq5Yqo5YiG6YWN5pe26Ze0"/>
+      <column name="active_order_count" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5rS76LeD55qE6K6i5Y2V5pWw55uu"/>
+      <column name="last_order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyA6L+R5LiA5qyh5aSE55CG55qE6K6i5Y2VSUQ="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="service_activity_rec" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5pyNSUQ="/>
+      <column name="sa_group_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5pyN57uESUQ="/>
+      <column name="business_order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LqL5Yqh5Y2VSUQ="/>
+      <column name="join_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yqg5YWl5pe26Ze0"/>
+      <column name="exit_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="6YCA5Ye65pe26Ze0"/>
+      <column name="join_way" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5Yqg5YWl5pa55byP"/>
+      <column name="exit_way" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="6YCA5Ye65pa55byP"/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5a6i5pyN5Zyo5LqL5Yqh5Y2V5Lit55qE54q25oCB"/>
+      <column name="soure_service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yqg5YWl5pa55byP5Li66L2s5o6l5pe277yM6K6w5b2V6L2s5o6l5a6i5pyNSUQ="/>
+      <column name="source_sa_group_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Y6f5aeL5a6i5pyN5b2S5bGe5a6i5pyN57uE"/>
+      <column name="remark" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" remarks="5aSH5rOo"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="shcedule_callback_info" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="event_code" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5LqL5Lu257yW56CB"/>
+      <column name="business_order_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5LqL5Yqh5Y2V57G75Z6L"/>
+      <column name="target_service_name" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="5Zue6LCD55uu5qCH5pyN5Yqh5ZCN"/>
+      <column name="target_service_host" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12" remarks="5Zue6LCD55uu5qCH5pyN5YqhSG9zdOWIl+ihqO+8jOS7peKAnDvigJ3liIbpmpQ="/>
+      <column name="change" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MQ==" remarks="5piv5ZCm5pyJ5pS55Y+Y"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="shcedule_order_queue" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="business_order_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA==" remarks="5LqL5Yqh5Y2V57G75Z6L"/>
+      <column name="business_order_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="LTE=" remarks="5LqL5Yqh5Y2VSUQ="/>
+      <column name="customer_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="LTE=" remarks="6K6/5a6iSUQ="/>
+      <column name="service_account_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="LTE=" remarks="5YiG6YWN55qE5a6i5pyNSUQ="/>
+      <column name="status" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="LTE=" remarks="54q25oCB77yaMeetieW+he+8mzLlt7LliIbphY0="/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="562J5b6F5LqL5Yqh5Y2V5qCH6aKY"/>
+      <column name="tag" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12" def="Jyc=" remarks="6Zif5YiX5qCH6K+G"/>
+      <column name="handle_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5b2T5YmN5a6i5pyN5o6l5YWl5pe26Ze0"/>
+      <column name="end_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" def="MA==" remarks="5pyN5Yqh57uT5p2f5pe26Ze0"/>
+      <column name="create_time" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="unknown_question" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="question" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1" remarks="6Zeu6aKY5YaF5a65"/>
+      <column name="create_time" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" remarks="5Yib5bu65pe26Ze0"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="user_client_setting" schema="" catalog="imcs_dev" type="TABLE">
+      <column name="id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5Li76ZSu" autoIncrement="true"/>
+      <column name="app_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5LyB5LiaSUQ="/>
+      <column name="source_type" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" remarks="5a6i5oi356uv5p2l5rqQ57G75Z6L"/>
+      <column name="source_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5" remarks="5a6i5oi356uv5p2l5rqQ6YWN572uSUTvvIzlpoJkb21haW5fY2xpZW50X21hcHBpbmfnmoRJRA=="/>
+      <column name="client_account" sqlType="VARCHAR" precision="128" scale="0" nullable="false" jdbcType="12" remarks="5a6i5oi356uv6LSm5Y+3"/>
+      <column name="user_id" sqlType="BIGINT" precision="19" scale="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+  </data-source>
+</component>
