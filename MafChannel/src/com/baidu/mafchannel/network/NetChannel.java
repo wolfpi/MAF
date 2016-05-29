@@ -152,7 +152,7 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
                 // ServiceApplication.getInstance().getNetworkLayer().onReceive(downPacket);
                 receive(downPacketMessage);
 
-                // ½«Ğ­ÒéÈÕÖ¾Ğ´ÎÄ¼ş£¬±ãÓÚÔÚtest¹¤³Ìmock¡£
+                // å°†åè®®æ—¥å¿—å†™æ–‡ä»¶ï¼Œä¾¿äºåœ¨testå·¥ç¨‹mockã€‚
                 // NetworkLayer.saveProtocolFile(downPacket);
             } catch (Throwable t) {
 
@@ -200,15 +200,15 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
                         //ServiceApplication.getInstance().getTransactionFlow().outAppHeartbeat();
                     }
                 } else if (state == LoginState_T.LS_UNLOGIN) {
-                    // µôÏß
+                    // æ‰çº¿
                     LogUtils.i("hichannel is offline now.");
                     onChanged(NetChannelStatus.Disconnected);
                 } else if (state == LoginState_T.LS_LOGGING || state == LoginState_T.LS_RETRYING) {
-                    // Á¬½Ó»òÕß¶ÏÍøÖØÁ¬ÖĞ
+                    // è¿æ¥æˆ–è€…æ–­ç½‘é‡è¿ä¸­
                     LogUtils.i("hichannel is connecting...");
                     onChanged(NetChannelStatus.Disconnected);
                 } else if (state == LoginState_T.LS_RETRYCOUNTING) {
-                    // ÖØÁ¬µ¹¼ÆÊ±ÖĞ
+                    // é‡è¿å€’è®¡æ—¶ä¸­
                     LogUtils.i("hichannel is counting-down...");
                     onChanged(NetChannelStatus.Disconnected);
                 } else {
@@ -225,7 +225,7 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
             if (err == 1000005) {
                 return;
             }
-            LogUtils.i("ÊÕµ½hichannelµÄ»Ø°ü~~~~~~~~~~~~~~~~~~~~~onError(long err, int arg1, byte[] data, int len)");
+            LogUtils.i("æ”¶åˆ°hichannelçš„å›åŒ…~~~~~~~~~~~~~~~~~~~~~onError(long err, int arg1, byte[] data, int len)");
             LogUtils.i(err + "  " + arg1 + "  " + Arrays.toString(data) + "  " + len);
         }
 

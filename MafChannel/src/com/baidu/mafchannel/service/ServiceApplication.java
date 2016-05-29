@@ -52,21 +52,21 @@ public class ServiceApplication {
     }
 
     /**
-     * »ñÈ¡È«¾ÖÊµÀı¡£
+     * è·å–å…¨å±€å®ä¾‹ã€‚
      */
     public static synchronized ServiceApplication getInstance() {
         return outAppApplication;
     }
 
     /**
-     * »ñÈ¡Hi core serviceµÄ context.
+     * è·å–Hi core serviceçš„ context.
      */
     public Context getContext() {
         return context;
     }
 
     /**
-     * ÓÃÓÚºÍin-appµÄ²¿·ÖÍ¨ĞÅ¡£
+     * ç”¨äºå’Œin-appçš„éƒ¨åˆ†é€šä¿¡ã€‚
      *
      * @return
      */

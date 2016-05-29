@@ -8,24 +8,24 @@ import com.baidu.mafchannel.message.Message;
 public interface MafUserChannel extends  MafChannel{
     /**
      *
-     * <b>Ê¹ÓÃÓÃ»§ÃûµÇÂ¼</b>
+     * <b>ä½¿ç”¨ç”¨æˆ·åç™»å½•</b>
      * <p>
-     * ¿ÉÖ±½Óµ÷ÓÃ¸Ã·½·¨Ìæ´úµ÷ÓÃconnect·½·¨£¬¸Ã·½·¨Ó¦×Ô¶¯½øĞĞconnectÈç¹ûµ±Ç°¶ËÎ´Á¬½Ó£¬ loginÍê³Éºó£¬¼´½«¸ÃÉè±¸Óë¸ÃÓÃ»§½øĞĞÁË°ó¶¨£¬Í¬Ò»Éè±¸Ö»ÄÜ°ó¶¨Ò»¸öÓÃ»§¡£
-     * µ±loginÊ±µÄuserIDÓëÒÑµÇÂ¼userID²»Í¬Ê±£¬×Ô¶¯µ÷ÓÃÉÏ¸öÓÃ»§µÄlogout£¬È·±£Í¬Ò»Ê±¼äÖ»ÄÜÓĞÒ»¸öÓÃ»§µÇÂ¼
+     * å¯ç›´æ¥è°ƒç”¨è¯¥æ–¹æ³•æ›¿ä»£è°ƒç”¨connectæ–¹æ³•ï¼Œè¯¥æ–¹æ³•åº”è‡ªåŠ¨è¿›è¡Œconnectå¦‚æœå½“å‰ç«¯æœªè¿æ¥ï¼Œ loginå®Œæˆåï¼Œå³å°†è¯¥è®¾å¤‡ä¸è¯¥ç”¨æˆ·è¿›è¡Œäº†ç»‘å®šï¼ŒåŒä¸€è®¾å¤‡åªèƒ½ç»‘å®šä¸€ä¸ªç”¨æˆ·ã€‚
+     * å½“loginæ—¶çš„userIDä¸å·²ç™»å½•userIDä¸åŒæ—¶ï¼Œè‡ªåŠ¨è°ƒç”¨ä¸Šä¸ªç”¨æˆ·çš„logoutï¼Œç¡®ä¿åŒä¸€æ—¶é—´åªèƒ½æœ‰ä¸€ä¸ªç”¨æˆ·ç™»å½•
      * </p>
      *
      * @since 1.0
      *
-     * @param userID ÓÃ»§ID
-     * @param userToken ÓÃ»§Token£¬Ê¹ÓÃÓÃ»§ID´ÓIM+·şÎñÆ÷¶Ë»ñÈ¡
+     * @param userID ç”¨æˆ·ID
+     * @param userToken ç”¨æˆ·Tokenï¼Œä½¿ç”¨ç”¨æˆ·IDä»IM+æœåŠ¡å™¨ç«¯è·å–
      */
     public void login(String userID, String userToken);
 
     /**
      *
-     * <b>ÓÃ»§×¢Ïú</b>
+     * <b>ç”¨æˆ·æ³¨é”€</b>
      * <p>
-     * ÓÃ»§×¢Ïú²»µÈÍ¬ÓÚdisconnect£¬×¢ÏúºóÍ¬Ñù»áÊÕµ½·¢ÍùÖ¸¶¨¶ËµÄÍ¨Öª
+     * ç”¨æˆ·æ³¨é”€ä¸ç­‰åŒäºdisconnectï¼Œæ³¨é”€ååŒæ ·ä¼šæ”¶åˆ°å‘å¾€æŒ‡å®šç«¯çš„é€šçŸ¥
      * </p>
      *
      * @since 1.0
@@ -35,14 +35,14 @@ public interface MafUserChannel extends  MafChannel{
 
     /**
      *
-     * <b>ÓÃ»§·¢ËÍÉÏĞĞÊı¾İ</b>
+     * <b>ç”¨æˆ·å‘é€ä¸Šè¡Œæ•°æ®</b>
      *
      * <p>
-     * ÔÚÊÕµ½ÒµÎñ·½·şÎñÆ÷µÄ»Øµ÷Ê±ºò£¬»áµ÷ÓÃlistenerµÄreceive·½·¨
+     * åœ¨æ”¶åˆ°ä¸šåŠ¡æ–¹æœåŠ¡å™¨çš„å›è°ƒæ—¶å€™ï¼Œä¼šè°ƒç”¨listenerçš„receiveæ–¹æ³•
      * </p>
      *
-     * @param message ĞèÒª·¢ËÍµÄÏûÏ¢
-     * @param listener ÏûÏ¢»Ø¸´Ê±ºòµÄ»Øµ÷º¯Êı
+     * @param message éœ€è¦å‘é€çš„æ¶ˆæ¯
+     * @param listener æ¶ˆæ¯å›å¤æ—¶å€™çš„å›è°ƒå‡½æ•°
      */
     public void sendMessage(Message message, MafMessageListener listener);
 }

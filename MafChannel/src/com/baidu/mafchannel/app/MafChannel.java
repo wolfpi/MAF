@@ -7,9 +7,9 @@ package com.baidu.mafchannel.app;
 public interface MafChannel {
         /**
      *
-     * <b>ÉèÖÃ½ÓÊÕÍ¨Öª</b>
+     * <b>è®¾ç½®æ¥æ”¶é€šçŸ¥</b>
      * <p>
-     * Ä¬ÈÏÎª¿ªÆô£¬iOS SDK²»ÊµÏÖ¸Ã·½·¨£¬Ó¦ÌáÊ¾ÓÃ»§Ê¹ÓÃÏµÍ³ÉèÖÃ·½Ê½
+     * é»˜è®¤ä¸ºå¼€å¯ï¼ŒiOS SDKä¸å®ç°è¯¥æ–¹æ³•ï¼Œåº”æç¤ºç”¨æˆ·ä½¿ç”¨ç³»ç»Ÿè®¾ç½®æ–¹å¼
      * </p>
      *
      * @since 1.0
@@ -18,12 +18,12 @@ public interface MafChannel {
     public void enableNotification();
     /**
      *
-     * <b>½ûÖ¹½ÓÊÕÍ¨Öª</b>
+     * <b>ç¦æ­¢æ¥æ”¶é€šçŸ¥</b>
      * <p>
-     * iOS SDK²»ÊµÏÖ¸Ã·½·¨£¬Ó¦ÌáÊ¾ÓÃ»§Ê¹ÓÃÏµÍ³ÉèÖÃ·½Ê½
+     * iOS SDKä¸å®ç°è¯¥æ–¹æ³•ï¼Œåº”æç¤ºç”¨æˆ·ä½¿ç”¨ç³»ç»Ÿè®¾ç½®æ–¹å¼
      * </p>
      * <br>
-     * ¹Ø±ÕÍ¨Öªºó£¬IM+µÄSDK½«²»»á´¦ÀíÍ¨ÖªĞÅÏ¢£¬±¾¿ª¹Ø²»Ó°ÏìmessageµÄÍÆËÍ
+     * å…³é—­é€šçŸ¥åï¼ŒIM+çš„SDKå°†ä¸ä¼šå¤„ç†é€šçŸ¥ä¿¡æ¯ï¼Œæœ¬å¼€å…³ä¸å½±å“messageçš„æ¨é€
      *
      * @since 1.0
      *
@@ -31,37 +31,37 @@ public interface MafChannel {
     public void disableNotification();
     /**
      *
-     * <b>²éÑ¯ÊÇ·ñ½ÓÊÕÍ¨ÖªÏûÏ¢</b>
+     * <b>æŸ¥è¯¢æ˜¯å¦æ¥æ”¶é€šçŸ¥æ¶ˆæ¯</b>
      *
      * @since 1.0
      *
-     * @return ÊÇ·ñ½ÓÊÕ
+     * @return æ˜¯å¦æ¥æ”¶
      */
     public boolean isNotificationEnabled();
 
     /**
      *
-     * <b>ÉèÖÃÃâ´òÈÅÊ±¶Î</b>
+     * <b>è®¾ç½®å…æ‰“æ‰°æ—¶æ®µ</b>
      * <p>
-     * iOS SDK²»ÊµÏÖ¸Ã·½·¨¡£Ö¸¶¨Ê±¼äÄÚ´¦ÓÚÃâ´òÈÅÄ£Ê½£¬Í¨Öªµ½´ïÊ±½«È¥³ıÍ¨ÖªµÄÌáÊ¾Òô£¬Õğ¶¯ÒÔ¼°ÌáÊ¾É¾³ı¡£ Èç¹û¶¼ÉèÖÃÎª0ÔòÎª¹Ø±ÕÃâ´òÈÅÄ£Ê½
+     * iOS SDKä¸å®ç°è¯¥æ–¹æ³•ã€‚æŒ‡å®šæ—¶é—´å†…å¤„äºå…æ‰“æ‰°æ¨¡å¼ï¼Œé€šçŸ¥åˆ°è¾¾æ—¶å°†å»é™¤é€šçŸ¥çš„æç¤ºéŸ³ï¼Œéœ‡åŠ¨ä»¥åŠæç¤ºåˆ é™¤ã€‚ å¦‚æœéƒ½è®¾ç½®ä¸º0åˆ™ä¸ºå…³é—­å…æ‰“æ‰°æ¨¡å¼
      * </p>
      *
      * @since 1.0
      *
-     * @param startHour ¿ªÊ¼Ê±¼ä-Ğ¡Ê±
-     * @param startMinute ¿ªÊ¼Ê±¼ä-·ÖÖÓ
-     * @param endHour ½áÊøÊ±¼ä-Ğ¡Ê±
-     * @param endMinute ½áÊøÊ±¼ä-·ÖÖÓ
+     * @param startHour å¼€å§‹æ—¶é—´-å°æ—¶
+     * @param startMinute å¼€å§‹æ—¶é—´-åˆ†é’Ÿ
+     * @param endHour ç»“æŸæ—¶é—´-å°æ—¶
+     * @param endMinute ç»“æŸæ—¶é—´-åˆ†é’Ÿ
      */
     public void setNoDisturbMode(int startHour, int startMinute, int endHour, int endMinute);
 
     /**
      *
-     * <b>ÉèÖÃÍ¨Öª»Øµ÷</b>
+     * <b>è®¾ç½®é€šçŸ¥å›è°ƒ</b>
      *
      * @since 1.0
      *
-     * @param notifyListener ÉèÖÃµÄÍ¨Öª»Øµ÷
+     * @param notifyListener è®¾ç½®çš„é€šçŸ¥å›è°ƒ
      */
     public void setNotifyListener(MafNotifyListener notifyListener);
 }

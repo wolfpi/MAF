@@ -34,7 +34,7 @@ public class MafService extends Service {
             LogUtils.d(TAG, "service onCreate.");
             ServiceApplication.getInstance().initialize(this);
 
-            // service…±≤ªÀ¿
+            // serviceÊùÄ‰∏çÊ≠ª
             AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             Intent intent = new Intent(this, getClass());
             PendingIntent pendingIntent =

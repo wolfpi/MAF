@@ -8,6 +8,8 @@ import android.os.*;
 import android.os.Message;
 import com.apkfuns.logutils.LogUtils;
 import com.baidu.mafchannel.channel.DataChannel;
+import com.baidu.mafchannel.channel.MessageChannel;
+import com.baidu.mafchannel.channel.MessageListener;
 import com.baidu.mafchannel.message.*;
 import com.baidu.mafchannel.network.NetChannelStatus;
 import com.baidu.mafchannel.service.MafService;
@@ -15,11 +17,13 @@ import com.baidu.mafchannel.util.*;
 import com.google.protobuf.micro.InvalidProtocolBufferMicroException;
 
 import java.io.BufferedReader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by hanxin on 2016/5/21.
  */
-public class AppBindChannel implements DataChannel {
+public class AppBindChannel extends MessageChannel {
 
     public static final String TAG = "AppBindChannel";
 
@@ -27,6 +31,7 @@ public class AppBindChannel implements DataChannel {
     private Messenger serverMessenger = null;
     private Messenger clientMessenger = null;
     // private static MessageListener mMsgListener = null;
+    private ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     private boolean mIsBound;
     private PreferenceUtil mPref = null;
@@ -40,8 +45,9 @@ public class AppBindChannel implements DataChannel {
             return true;
         }
     };
+    private Context context;
 
-    public void initialize(PreferenceUtil pref) {
+    public void initialize(Context context, PreferenceUtil pref) {
         synchronized(handlerCallback) {
             if (messengerThread == null) {
                 messengerThread = new HandlerThread("MafServiceBinding");
@@ -50,13 +56,9 @@ public class AppBindChannel implements DataChannel {
             }
         }
         clientMessenger = new Messenger(handler);
+        this.context = context;
         bind();
         mPref = pref;
-    }
-
-    public AppBindChannel(MessageListener msgListener) {
-        // mMsgListener = msgListener;
-        InAppApplication.getInstance().getBizThread().setListener(msgListener);
     }
 
     /**
@@ -69,7 +71,7 @@ public class AppBindChannel implements DataChannel {
             ToastUtil.toast("Connected remote service.");
 
             LogUtil.e(TAG, "check network is called in connection");
-            // ¡¨Ω”…œ–Ë“™ºÏ≤‚Õ¯¬Á◊¥Ã¨
+            // ËøûÊé•‰∏äÈúÄË¶ÅÊ£ÄÊµãÁΩëÁªúÁä∂ÊÄÅ
             try {
                 regChannel();
             } catch (RemoteException e) {
@@ -87,7 +89,7 @@ public class AppBindChannel implements DataChannel {
 
             IDGenerator.reset();
 
-            // Õ®÷™…œ≤„¡¨Ω”±‰ªØ
+            //ÈÄöÁü•‰∏äÂ±ÇËøûÊé•ÂèòÂåñ
             try {
                 InAppApplication.getInstance().getSession()
                         .networkChannelStatusChanged(NetworkChannelStatus.Disconnected);
@@ -106,12 +108,12 @@ public class AppBindChannel implements DataChannel {
         // names. This allows other applications to be installed that replace
         // the remote service by implementing the same interface.
 
-        Intent startintent = new Intent(InAppApplication.getInstance().getContext(), MafService.class);
+        Intent startintent = new Intent(context, MafService.class);
         startintent.setAction("com.baidu.im.sdk.service");
 
-        if(ServiceControlUtil.showInSeperateProcess(InAppApplication.getInstance().getContext())) {
+        if(ServiceControlUtil.showInSeperateProcess(context)) {
             try {
-                InAppApplication.getInstance().getContext().startService(startintent);
+                context.startService(startintent);
             } catch (Exception e) {
                 LogUtil.printImE(TAG, "fail to startService", e);
             }
@@ -121,7 +123,7 @@ public class AppBindChannel implements DataChannel {
 
 
         boolean result =
-                InAppApplication.getInstance().getContext().bindService(startintent, mConnection, Context.BIND_AUTO_CREATE);
+                context.bindService(startintent, mConnection, Context.BIND_AUTO_CREATE);
 
         LogUtil.printMainProcess("Service bind. reslut = " + result);
         LogUtil.printMainProcess("bind. serverMessenger = " + serverMessenger);
@@ -132,7 +134,7 @@ public class AppBindChannel implements DataChannel {
         if (mIsBound) {
 
             // Detach our existing connection.
-            InAppApplication.getInstance().getContext().unbindService(mConnection);
+            context.unbindService(mConnection);
             mIsBound = false;
             IDGenerator.reset();
         }
@@ -156,7 +158,7 @@ public class AppBindChannel implements DataChannel {
     }
 
     /**
-     * ∑¢œ˚œ¢∏¯OutAppService£¨ºÏ≤ÈÕ¯¬Á◊¥Ã¨
+     * ÂèëÈÄÅÊ∂àÊÅØÁªôOutAppService
      */
     public void regChannel() throws RemoteException {
 
@@ -249,12 +251,22 @@ public class AppBindChannel implements DataChannel {
     }
 
     @Override
-    public void receive(com.baidu.mafchannel.message.Message downPacket) throws Exception {
+    public void receive(final com.baidu.mafchannel.message.Message downPacket) throws Exception {
         switch (downPacket.getMessageType()){
             case NORMAL:
             {
                 LogUtil.printMainProcess(TAG, "Receive NORMAL msg: " + downPacket);
-                InAppApplication.getInstance().getBizThread().addMessage(downPacket);
+                threadPool.execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            getNextChannel().receive(downPacket);
+                        }
+                        catch (Exception e){
+                            LogUtils.e("MessageRouter","receive message error" + e.getMessage());
+                        }
+                    }
+                });
             }
             break;
             case NETWORK_CHANGE:

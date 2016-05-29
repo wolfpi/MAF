@@ -26,7 +26,7 @@ public class ServiceChannel implements DataChannel {
     }
 
     /**
-     * ÓÉserviceÖ÷Ïß³Ì»ñµÃµÄhandler£¬ÓÃÓÚ´¦ÀíaidlÏûÏ¢¡£
+     * ç”±serviceä¸»çº¿ç¨‹è·å¾—çš„handlerï¼Œç”¨äºå¤„ç†aidlæ¶ˆæ¯ã€‚
      */
     private Handler handler = new Handler() {
         public void handleMessage(android.os.Message message) {
@@ -40,7 +40,7 @@ public class ServiceChannel implements DataChannel {
     };
 
     /**
-     * Server¶Ë³ÖÓĞµÄmessenger¡£
+     * Serverç«¯æŒæœ‰çš„messengerã€‚
      */
     private Messenger serverMessenger = new Messenger(handler);
 

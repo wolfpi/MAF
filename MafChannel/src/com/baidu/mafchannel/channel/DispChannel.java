@@ -23,6 +23,9 @@ public class DispChannel implements DataChannel {
         if (null != channel){
             channel.receive(downPacket);
         }
+        else{
+            receiveUnknownIdMessage(downPacket);
+        }
     }
 
     @Override
@@ -37,5 +40,9 @@ public class DispChannel implements DataChannel {
 
     public void receive(Message downPacket, DataChannel channel) throws Exception{
         channel.receive(downPacket);
+    }
+
+    public void receiveUnknownIdMessage(Message message){
+
     }
 }

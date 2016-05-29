@@ -6,10 +6,10 @@ import com.baidu.im.frame.pb.ObjDownPacket.DownPacket;
 public class BizCodeProcessUtil {
 
     public static ProcessorCode procProcessorCode(String processorName, DownPacket downPacket) {
-    	
-    	if(processorName == null)
-    		processorName = "";
-    	
+
+        if (processorName == null)
+            processorName = "";
+
         if (downPacket != null) {
             // Return channelCode immediately if not success.
             ChannelCode channelCode = ChannelCode.parse(downPacket.getChannelCode());
@@ -85,9 +85,9 @@ public class BizCodeProcessUtil {
 
     public static ProcessorCode procChannelCode(ChannelCode code) {
 
-    	if(code == null)
-    		return ProcessorCode.CHANNEL_SERVER_ERROR;
-    	
+        if (code == null)
+            return ProcessorCode.CHANNEL_SERVER_ERROR;
+
         switch (code) {
             case CHANNEL_AUTHENTICATION_ERROR:
                 return ProcessorCode.SESSION_ERROR;
@@ -143,5 +143,5 @@ public class BizCodeProcessUtil {
             return ChannelCode.CHANNEL_UNKNOWN_ERROR;
         }
     }
+}
 
-    public enum BizCode

@@ -57,6 +57,16 @@ public class DownPacketMessage extends MicroProtoBufRspMessage {
             return null;
         }
     }
+
+    public static DownPacketMessage parse(byte[] bytes){
+        DownPacketMessage downPacketMessage = new DownPacketMessage();
+        if (downPacketMessage.parseFrom(bytes)){
+            return downPacketMessage;
+        }
+        else {
+            return null;
+        }
+    }
 /*    @Override
     public boolean serializeTo(Buffer buffer) {
         Buffer tmp = new Buffer();

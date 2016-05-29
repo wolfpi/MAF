@@ -11,9 +11,9 @@ public class PacketChannelManager {
     private Map<EChannelId, PacketChannel> channelMap = new ConcurrentHashMap<EChannelId, PacketChannel>();
 
     static {
-        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.PushConfirm));
-        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.SetAppOffline));
-        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.RegApp));
+/*        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.PushConfirm));
+        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.SetAppStatus));
+        PacketChannelManager.getInstance().registChannel(new MessageMicroChannel(EChannelId.RegApp));*/
     }
 
     private PacketChannelManager() {

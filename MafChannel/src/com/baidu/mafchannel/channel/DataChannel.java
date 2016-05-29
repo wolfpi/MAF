@@ -7,19 +7,19 @@ import com.baidu.mafchannel.message.Message;
  */
 public interface DataChannel {
     /**
-     * ·¢ËÍÉÏĞĞ°ü
+     * å‘é€ä¸Šè¡ŒåŒ…
      * @param upPacket
      */
     void send(Message upPacket) throws Exception;
 
     /**
-     * ½ÓÊÕÏÂĞĞ°ü
+     * æ¥æ”¶ä¸‹è¡ŒåŒ…
      * @param downPacket
      */
     void receive(Message downPacket) throws Exception;
 
     /**
-     * ÉèÖÃÏÂÒ»¸öchannel
+     * è®¾ç½®ä¸‹ä¸€ä¸ªchannel
      * @param callback
      */
     void setNextChannel(DataChannel callback);

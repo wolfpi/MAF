@@ -49,7 +49,7 @@ public class MessageDispatcher extends DispChannel{
             case NORMAL:
             {
                 UpPacketMessage upPacketMessage = (UpPacketMessage)upPacket;
-                //app消息
+                //app娑堟伅
                 if (null != upPacketMessage.getAppKey()) {
                     AppChannel channel = appKeyChannelMap.get(upPacketMessage.getAppKey());
                     if (null != channel)
@@ -81,7 +81,7 @@ public class MessageDispatcher extends DispChannel{
                 case NORMAL:
                 {
                     DownPacketMessage downPacketMessage = (DownPacketMessage)downPacket;
-                    //LogUtil.printProtocol("收包<--------\r\n" + ProtobufLogUtil.print(downPacketMessage.getMicro()));
+                    //LogUtil.printProtocol("鏀跺寘<--------\r\n" + ProtobufLogUtil.print(downPacketMessage.getMicro()));
                     String appKey = appId2AppKeyMap.get(downPacketMessage.getAppId());
                     DataChannel channel = channelMap.get(downPacket.getMessageID());
                     if (null == channel){
