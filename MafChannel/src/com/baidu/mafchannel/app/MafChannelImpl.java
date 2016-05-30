@@ -1,19 +1,16 @@
 package com.baidu.mafchannel.app;
 
 import android.content.Context;
-
 import com.baidu.mafchannel.channel.MessageChannel;
 import com.baidu.mafchannel.message.Message;
+import com.baidu.mafchannel.network.INetworkChangeListener;
+import com.baidu.mafchannel.network.NetChannelStatus;
 import com.baidu.mafchannel.util.PreferenceUtil;
-
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by 欣 on 2016/5/29.
  */
-public class MafChannelImpl extends MessageChannel implements MafChannel {
+public class MafChannelImpl extends MessageChannel implements MafChannel, INetworkChangeListener {
     private Context context = null;
     private String apiKey = null;
     private MessageRouter messageRouter = new MessageRouter(this);
@@ -54,5 +51,10 @@ public class MafChannelImpl extends MessageChannel implements MafChannel {
 
     @Override
     public void receive(Message downPacket) throws Exception {
+    }
+
+    @Override
+    public void onChanged(NetChannelStatus networkChannelStatus) {
+
     }
 }

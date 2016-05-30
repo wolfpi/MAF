@@ -5,7 +5,7 @@ import com.google.protobuf.micro.MessageMicro;
 /**
  * Created by hanxin on 2016/5/19.
  */
-public class MicroProtoBufRspMessage extends MicroProtoBufMessage {
+public class MicroProtoBufRspMessage extends MicroProtoBufMessage implements ResponseMessage{
     private int errcode = 0;
     private String errInfo;
 

@@ -19,7 +19,7 @@ public class MafChannelSDK {
         if (null == channel && null != mAppkey){
             if (channel == null) {
                 channel = new MafChannelImpl(mContext, mAppkey);
-                channel.init();
+                channel.initialize(mPreference);
             }
         }
 
@@ -30,7 +30,7 @@ public class MafChannelSDK {
         if (null == userChannel && null != mAppkey){
             if (userChannel == null) {
                 userChannel = new MafUserChannelImpl(mContext, mAppkey);
-                userChannel.init();
+                userChannel.initialize(mPreference);
             }
         }
         return userChannel;

@@ -309,9 +309,4 @@ public class AppBindChannel extends MessageChannel {
         }
     }
 
-    @Override
-    public void setCallback(DataChannel callback) {
-    }
-
-
 }

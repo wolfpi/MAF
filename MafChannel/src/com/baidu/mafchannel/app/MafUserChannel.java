@@ -1,6 +1,6 @@
 package com.baidu.mafchannel.app;
 
-import com.baidu.mafchannel.message.Message;
+import com.baidu.mafchannel.message.RequestMessage;
 
 /**
  * Created by hanxin on 2016/5/15.
@@ -44,5 +44,5 @@ public interface MafUserChannel extends  MafChannel{
      * @param message 需要发送的消息
      * @param listener 消息回复时候的回调函数
      */
-    public void sendMessage(Message message, MafMessageListener listener);
+    public void sendMessage(RequestMessage message, MafMessageListener listener);
 }
