@@ -1,14 +1,9 @@
 package com.baidu.mafchannel.app;
 
-import android.content.Context;
-
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.mafchannel.channel.DispChannel;
+import com.baidu.mafchannel.com.MafContext;
 import com.baidu.mafchannel.message.Message;
 import com.baidu.mafchannel.util.PreferenceUtil;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by 欣 on 2016/5/29.
@@ -21,9 +16,9 @@ public class MessageRouter extends DispChannel {
         this.mafChannel = mafChannel;
     }
 
-    public void initialize(Context context, PreferenceUtil preferenceUtil){
+    public void initialize(MafContext context){
         bindChannel.setNextChannel(this);
-        bindChannel.initialize(context, preferenceUtil);
+        bindChannel.initialize(context);
     }
 
     @Override

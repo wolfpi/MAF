@@ -2,8 +2,7 @@ package com.baidu.mafchannel.app;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.baidu.mafchannel.util.PreferenceUtil;
+import com.baidu.mafchannel.com.MafContext;
 
 /**
  * Created by hanxin on 2016/5/15.
@@ -13,13 +12,13 @@ public class MafChannelSDK {
     private static Context mContext = null;
     private static MafChannelImpl channel = null;
     private static MafUserChannelImpl userChannel = null;
-    private static PreferenceUtil mPreference = new PreferenceUtil();
+    private static MafContext mafContext = null;
 
     public static synchronized MafChannel getChannelInstByAppKey(){
         if (null == channel && null != mAppkey){
             if (channel == null) {
-                channel = new MafChannelImpl(mContext, mAppkey);
-                channel.initialize(mPreference);
+                channel = new MafChannelImpl(mafContext);
+                channel.initialize();
             }
         }
 
@@ -29,8 +28,8 @@ public class MafChannelSDK {
     public static synchronized MafUserChannel getLoginChannelInstByAppKey(){
         if (null == userChannel && null != mAppkey){
             if (userChannel == null) {
-                userChannel = new MafUserChannelImpl(mContext, mAppkey);
-                userChannel.initialize(mPreference);
+                userChannel = new MafUserChannelImpl(mafContext);
+                userChannel.initialize();
             }
         }
         return userChannel;
@@ -48,8 +47,7 @@ public class MafChannelSDK {
         mContext = context;
         mAppkey = appKey;
         try {
-            mPreference.initialize(context, appKey);
-
+            mafContext = new MafContext(mContext, mAppkey);
         } catch (Throwable t) {
             Log.e("MafChannelSDK", t.getMessage(), t);
         }

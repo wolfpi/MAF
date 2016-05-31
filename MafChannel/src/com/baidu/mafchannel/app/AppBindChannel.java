@@ -10,6 +10,7 @@ import com.apkfuns.logutils.LogUtils;
 import com.baidu.mafchannel.channel.DataChannel;
 import com.baidu.mafchannel.channel.MessageChannel;
 import com.baidu.mafchannel.channel.MessageListener;
+import com.baidu.mafchannel.com.MafContext;
 import com.baidu.mafchannel.message.*;
 import com.baidu.mafchannel.network.NetChannelStatus;
 import com.baidu.mafchannel.service.MafService;
@@ -34,7 +35,6 @@ public class AppBindChannel extends MessageChannel {
     private ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     private boolean mIsBound;
-    private PreferenceUtil mPref = null;
     private static HandlerThread messengerThread;
     private Handler handler;
     final Handler.Callback handlerCallback = new Handler.Callback() {
@@ -45,9 +45,10 @@ public class AppBindChannel extends MessageChannel {
             return true;
         }
     };
+    private MafContext mafContext;
     private Context context;
 
-    public void initialize(Context context, PreferenceUtil pref) {
+    public void initialize(MafContext context) {
         synchronized(handlerCallback) {
             if (messengerThread == null) {
                 messengerThread = new HandlerThread("MafServiceBinding");
@@ -56,9 +57,9 @@ public class AppBindChannel extends MessageChannel {
             }
         }
         clientMessenger = new Messenger(handler);
-        this.context = context;
+        this.mafContext = context;
+        this.context = mafContext.getContext();
         bind();
-        mPref = pref;
     }
 
     /**
@@ -91,8 +92,7 @@ public class AppBindChannel extends MessageChannel {
 
             //通知上层连接变化
             try {
-                InAppApplication.getInstance().getSession()
-                        .networkChannelStatusChanged(NetworkChannelStatus.Disconnected);
+                mafContext.networkChange(NetChannelStatus.Disconnected);
             } catch (RuntimeException e) {
                 LogUtil.e(TAG, e);
             }
@@ -243,7 +243,7 @@ public class AppBindChannel extends MessageChannel {
         Bundle data = new Bundle();
 
         data.putByteArray(upPacket.getMessageType().getType(), upPacket.toByteArray());
-        data.putString(MessageTypeEnum.APPKEY.getType(), mPref.getString(PreferenceKey.apiKey));
+        data.putString(MessageTypeEnum.APPKEY.getType(), mafContext.getAppKey());
         // data.putInt(APPID, mPref.getInt(PreferenceKey.appId));
 
         message.setData(data);
@@ -272,37 +272,33 @@ public class AppBindChannel extends MessageChannel {
             case NETWORK_CHANGE:
             {
                 // Receive network change message
-                if (null != InAppApplication.getInstance().getSession()) {
-                    NetworkChangeMessage networkChangeMessage = (NetworkChangeMessage)downPacket;
-                    LogUtil.printMainProcess(TAG, "Receive NETWORK_CHANGE msg: " + networkChangeMessage.getStatus());
-                    InAppApplication.getInstance().getSession().networkChannelStatusChanged(networkChangeMessage.getStatus());
-                }
+                NetworkChangeMessage networkChangeMessage = (NetworkChangeMessage)downPacket;
+                LogUtil.printMainProcess(TAG, "Receive NETWORK_CHANGE msg: " + networkChangeMessage.getStatus());
+                mafContext.networkChange(networkChangeMessage.getStatus());
             }
             break;
             case REGCHANNEL:
             {
                 RegChannelMessage regChannelMessage = (RegChannelMessage)downPacket;
-                if (null != InAppApplication.getInstance().getSession()) {
-                    try {
-                        String olderChannelkey = InAppApplication.getInstance().getSession().getChannel().getChannelKey();
-                        if(!regChannelMessage.getChannelData().equals(olderChannelkey))
-                        {
-                            InAppApplication.getInstance().getSession().getChannel().setChannelKey(regChannelMessage.getChannelData());
-                            new Thread(new Runnable() {
+                try {
+                    String olderChannelkey = mafContext.getChannelKey();
+                    if(!regChannelMessage.getChannelData().equals(olderChannelkey))
+                    {
+                        mafContext.setChannelKey(regChannelMessage.getChannelData());
+                        new Thread(new Runnable() {
 
-                                @Override
-                                public void run() {
+                            @Override
+                            public void run() {
 
-                                    InAppApplication.getInstance().getTransactionFlow().resend();
-                                }
-                            }).start();
+                                InAppApplication.getInstance().getTransactionFlow().resend();
+                            }
+                        }).start();
 
-                        }
-                        LogUtil.printMainProcess(TAG, "Receive channelKey msg: " + regChannelMessage.getChannelData());
-
-                    } catch (RuntimeException e) {
-                        LogUtil.printError(e);
                     }
+                    LogUtil.printMainProcess(TAG, "Receive channelKey msg: " + regChannelMessage.getChannelData());
+
+                } catch (RuntimeException e) {
+                    LogUtil.printError(e);
                 }
             }
             break;

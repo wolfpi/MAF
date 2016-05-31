@@ -14,10 +14,12 @@ public class PreferenceUtil implements Preference{
     private static final String ChannelKey = "channelkey";
     private static final String DEVICE_TOKEN = "deviceToken";
     private static final String HeartBeatTime = "lastheartbeat";
+    private static final String AppId = "appid";
 
     private  SharedPreferences globalPreferences;
     private  SharedPreferences seqPreferences;
     private  SharedPreferences apipreference = null;
+    private  SharedPreferences appIdPreference = null;
     private  int mSeq = 0;
     private  Context ct = null;
         
@@ -41,10 +43,13 @@ public class PreferenceUtil implements Preference{
             globalPreferences = context.getSharedPreferences(apiKey, Context.MODE_MULTI_PROCESS);
         }
         if (seqPreferences == null) {
-            seqPreferences = getTargetContext(context).getSharedPreferences("seq", Context.MODE_WORLD_READABLE+Context.MODE_MULTI_PROCESS+Context.MODE_WORLD_WRITEABLE);
+            seqPreferences = getTargetContext(context).getSharedPreferences("seq", Context.MODE_WORLD_READABLE + Context.MODE_MULTI_PROCESS + Context.MODE_WORLD_WRITEABLE);
         }
         if (apipreference == null) {
-        	apipreference = context.getSharedPreferences("apikey", Context.MODE_MULTI_PROCESS);;
+        	apipreference = context.getSharedPreferences("apikey", Context.MODE_MULTI_PROCESS);
+        }
+        if (appIdPreference == null){
+            appIdPreference = context.getSharedPreferences(AppId, Context.MODE_MULTI_PROCESS);
         }
     }
 
@@ -82,6 +87,20 @@ public class PreferenceUtil implements Preference{
     	}
     }
 
+    public synchronized int getAppId(){
+        if (appIdPreference != null){
+            appIdPreference.getInt(AppId, 0);
+        }
+        return 0;
+    }
+
+    public synchronized void saveAppId(int appId){
+        if (appIdPreference != null){
+            Editor editor = appIdPreference.edit();
+            editor.putInt(AppId, appId);
+            editor.commit();
+        }
+    }
     public synchronized String getDeviceToken() {
         if (seqPreferences != null) {
             return seqPreferences.getString(DEVICE_TOKEN, "");

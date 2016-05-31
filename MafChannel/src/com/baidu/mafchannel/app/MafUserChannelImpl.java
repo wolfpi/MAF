@@ -1,21 +1,15 @@
 package com.baidu.mafchannel.app;
 
-import android.content.Context;
-
-import com.baidu.mafchannel.app.MafUserChannel;
-import com.baidu.mafchannel.channel.MessageChannel;
-import com.google.protobuf.Descriptors;
-import com.google.protobuf.Message;
-import com.google.protobuf.RpcCallback;
-import com.google.protobuf.RpcController;
+import com.baidu.mafchannel.com.MafContext;
+import com.baidu.mafchannel.message.RequestMessage;
 
 /**
  * Created by hanxin on 2016/5/15.
  */
 public class MafUserChannelImpl extends MafChannelImpl implements MafUserChannel {
 
-    public MafUserChannelImpl(Context context, String apiKey) {
-        super(context, apiKey);
+    public MafUserChannelImpl(MafContext context) {
+        super(context);
     }
 
     @Override
@@ -29,7 +23,7 @@ public class MafUserChannelImpl extends MafChannelImpl implements MafUserChannel
     }
 
     @Override
-    public void sendMessage(com.baidu.mafchannel.message.Message message, MafMessageListener listener) {
+    public void sendMessage(RequestMessage message, MafMessageListener listener) {
 
     }
 
