@@ -54,6 +54,10 @@ public class MafContext {
         this.networkChangeListener = networkChangeListener;
     }
 
+    public int getSeq(){
+        return mPreference.getSeq();
+    }
+
     public void networkChange(NetChannelStatus status){
         networkChangeListener.onChanged(status);
     }

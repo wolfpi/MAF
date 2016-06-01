@@ -20,12 +20,7 @@ public class DispChannel implements DataChannel {
     @Override
     public void receive(Message downPacket) throws Exception {
         DataChannel channel = channelMap.get(downPacket.getMessageID());
-        if (null != channel){
-            channel.receive(downPacket);
-        }
-        else{
-            receiveUnknownIdMessage(downPacket);
-        }
+        receive(downPacket, channel);
     }
 
     @Override
@@ -40,9 +35,5 @@ public class DispChannel implements DataChannel {
 
     public void receive(Message downPacket, DataChannel channel) throws Exception{
         channel.receive(downPacket);
-    }
-
-    public void receiveUnknownIdMessage(Message message){
-
     }
 }

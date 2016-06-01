@@ -1,11 +1,9 @@
 package com.baidu.mafchannel.app;
 
-import com.baidu.mafchannel.message.RequestMessage;
-
 /**
  * Created by hanxin on 2016/5/15.
  */
-public interface MafUserChannel extends  MafChannel{
+public interface MafUserChannel extends  MafChannel, MessageProcedureSender{
     /**
      *
      * <b>使用用户名登录</b>
@@ -41,8 +39,7 @@ public interface MafUserChannel extends  MafChannel{
      * 在收到业务方服务器的回调时候，会调用listener的receive方法
      * </p>
      *
-     * @param message 需要发送的消息
-     * @param listener 消息回复时候的回调函数
+     * @param procedure 需要发送的消息过程
      */
-    public void sendMessage(RequestMessage message, MafMessageListener listener);
+    public void send(MafMessageProcedure procedure) throws  Exception;
 }

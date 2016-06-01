@@ -109,7 +109,7 @@ public class ServiceApplication {
 
         this.context = context.getApplicationContext();
 
-        mafContext = new MafContext(context);
+        mafContext = new MafContext(context, null);
 
         try {
             networkLayer = new NetworkLayer(mPreference);

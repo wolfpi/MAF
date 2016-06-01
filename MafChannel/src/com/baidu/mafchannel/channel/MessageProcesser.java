@@ -35,7 +35,7 @@ public abstract class MessageProcesser extends MessageChannel implements Process
         upPacketMessage.setServiceName(channelInfo.getChannelId().getChannelServiceName());
         upPacketMessage.setMethodName(channelInfo.getChannelId().getChannelMethodName());
 
-        send(upPacketMessage);
+        super.send(upPacketMessage);
     }
     @Override
     public void process(MafContext context) throws Exception {
