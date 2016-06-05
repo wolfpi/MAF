@@ -88,7 +88,7 @@ public class MessageMicroChannel extends PacketChannel{
             Message rsp = getRspMessage();
             if (null != rsp){
                 rsp = downPacketMessage.parseMessage(rsp);
-                channel.getChannelRspData(this, downPacketMessage.getBusiCode(), "");
+                channel.getChannelRspData(this, rsp, downPacketMessage.getBusiCode(), "");
             }
         }
 

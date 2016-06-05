@@ -12,8 +12,10 @@ import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.processer.PushConfirmProcesser;
 import com.baidu.maf.processer.SetAppStatusProcesser;
 import com.baidu.maf.util.ConfigUtil;
+import com.baidu.maf.util.DeviceInfoUtil;
 import com.baidu.maf.util.LogUtil;
 import com.baidu.maf.util.PreferenceUtil;
+import com.baidu.maf.util.StringUtil;
 
 import java.io.IOException;
 
@@ -104,6 +106,9 @@ public class ServiceApplication {
         mPreference = new PreferenceUtil();
         mPreference.initialize(context, null);
 
+        if (StringUtil.isStringInValid(mPreference.getDeviceToken())){
+            mPreference.saveDeviceToken(DeviceInfoUtil.getDeviceToken(context));
+        }
         ConfigUtil.load();
 
 
@@ -120,7 +125,7 @@ public class ServiceApplication {
         serviceChannel = new ServiceChannel(networkLayer);
         networkLayer.setNextChannel(serviceChannel);
 
-
+        networkLayer.initialized();
     }
 
     public void runOnMainThread(Runnable runnable) {

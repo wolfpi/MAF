@@ -1,7 +1,9 @@
 package com.baidu.maf.com;
 
 import android.content.Context;
-import com.baidu.maf.network.INetworkChangeListener;
+
+import com.baidu.maf.app.SendBox;
+import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.util.PreferenceUtil;
 
@@ -13,13 +15,16 @@ public class MafContext {
     private int appId = 0;
     private String appKey = null;
     private String channelKey = null;
-    private INetworkChangeListener networkChangeListener = null;
+    private IChannelChangeListener networkChangeListener = null;
+    private SendBox sendBox = null;
     private PreferenceUtil mPreference = new PreferenceUtil();
 
     public MafContext(Context context, String appKey) {
         this.context = context;
         this.appKey = appKey;
         mPreference.initialize(context, appKey);
+        appId = mPreference.getAppId();
+        channelKey = mPreference.getChannelkey();
     }
 
     public int getAppId() {
@@ -28,6 +33,7 @@ public class MafContext {
 
     public void setAppId(int appId) {
         this.appId = appId;
+        mPreference.saveAppId(appId);
     }
 
     public String getAppKey() {
@@ -50,7 +56,7 @@ public class MafContext {
         return context;
     }
 
-    public void setNetworkChangeListener(INetworkChangeListener networkChangeListener) {
+    public void setNetworkChangeListener(IChannelChangeListener networkChangeListener) {
         this.networkChangeListener = networkChangeListener;
     }
 
@@ -60,5 +66,13 @@ public class MafContext {
 
     public void networkChange(NetChannelStatus status){
         networkChangeListener.onChanged(status);
+    }
+
+    public void setSendBox(SendBox sendBox) {
+        this.sendBox = sendBox;
+    }
+
+    public SendBox getSendBox() {
+        return sendBox;
     }
 }

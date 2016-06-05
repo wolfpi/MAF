@@ -14,6 +14,7 @@ import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.service.MafService;
 import com.baidu.maf.util.*;
 
+import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -28,7 +29,6 @@ public class AppBindChannel extends MessageChannel {
     private Messenger serverMessenger = null;
     private Messenger clientMessenger = null;
     // private static MessageListener mMsgListener = null;
-    private ExecutorService threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
     private boolean mIsBound;
     private static HandlerThread messengerThread;
@@ -105,7 +105,7 @@ public class AppBindChannel extends MessageChannel {
         // the remote service by implementing the same interface.
 
         Intent startintent = new Intent(context, MafService.class);
-        startintent.setAction("com.baidu.im.sdk.service");
+        startintent.setAction("com.baidu.maf.service");
 
         if(ServiceControlUtil.showInSeperateProcess(context)) {
             try {
@@ -230,7 +230,7 @@ public class AppBindChannel extends MessageChannel {
     }
 
     @Override
-    public void send(com.baidu.maf.message.Message upPacket) throws Exception {
+    public void send(final com.baidu.maf.message.Message upPacket) throws Exception {
         if (upPacket == null)
             return;
 
@@ -244,6 +244,19 @@ public class AppBindChannel extends MessageChannel {
 
         message.setData(data);
         send(message);
+
+        GlobalTimerTasks.getInstance().addTask(upPacket.getMessageID(), new TimerTask() {
+            @Override
+            public void run() {
+                ErrorMessage timeoutMessage = new ErrorMessage(upPacket.getMessageID(), ProcessorCode.SEND_TIME_OUT);
+                try {
+                    receive(timeoutMessage);
+                }
+                catch (Exception e){
+                    LogUtils.e(TAG, e.getMessage());
+                }
+            }
+        }, 1000);
     }
 
     @Override
@@ -252,6 +265,9 @@ public class AppBindChannel extends MessageChannel {
             case NORMAL:
             {
                 LogUtil.printMainProcess(TAG, "Receive NORMAL msg: " + downPacket);
+
+                GlobalTimerTasks.getInstance().removeTask(downPacket.getMessageID());
+
                 getNextChannel().receive(downPacket);
 //                threadPool.execute(new Runnable() {
 //                    @Override
@@ -282,15 +298,8 @@ public class AppBindChannel extends MessageChannel {
                     if(!regChannelMessage.getChannelData().equals(olderChannelkey))
                     {
                         mafContext.setChannelKey(regChannelMessage.getChannelData());
-                        new Thread(new Runnable() {
-
-                            @Override
-                            public void run() {
-
-                                InAppApplication.getInstance().getTransactionFlow().resend();
-                            }
-                        }).start();
-
+                        SendBox sendBox = mafContext.getSendBox();
+                        sendBox.resend();
                     }
                     LogUtil.printMainProcess(TAG, "Receive channelKey msg: " + regChannelMessage.getChannelData());
 

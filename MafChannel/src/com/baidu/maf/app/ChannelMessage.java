@@ -2,8 +2,10 @@ package com.baidu.maf.app;
 
 import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
+import com.baidu.maf.channel.Processer;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
+import com.baidu.maf.message.ResponseMessage;
 
 /**
  * Created by 欣 on 2016/6/1.
@@ -32,13 +34,31 @@ public class ChannelMessage {
     }
 
     public void receive(Message message) throws Exception{
-        DownPacketMessage downPacketMessage = (DownPacketMessage)message;
-        if (channel.getRspMessage().parseFrom(downPacketMessage.getBusiData())){
-            channel.setErrcode(downPacketMessage.getBusiCode());
-            channel.receive(channel.getRspMessage());
+        if (message instanceof DownPacketMessage){
+            DownPacketMessage downPacketMessage = (DownPacketMessage)message;
+            if (downPacketMessage.getChannelCode() == ProcessorCode.SUCCESS){
+                if (channel.getRspMessage().parseFrom(downPacketMessage.getBusiData())){
+                    channel.setErrcode(downPacketMessage.getBusiCode());
+                    channel.receive(channel.getRspMessage());
+                }
+                else {
+                    channel.setErrcode(ProcessorCode.PARSE_RESPONSE_ERROR.getCode());
+                    channel.setErrInfo(ProcessorCode.PARSE_RESPONSE_ERROR.getMsg());
+                    channel.receive(null);
+                    LogUtils.e("ChannelMessage", "Paser Down Packet Failed");
+                }
+            }
+            else {
+                channel.setErrcode(downPacketMessage.getChannelCode().getCode());
+                channel.setErrInfo(downPacketMessage.getChannelCode().getMsg());
+                channel.receive(null);
+            }
         }
-        else {
-            LogUtils.e("ChannelMessage", "Paser Down Packet Failed");
+        else{
+            ResponseMessage responseMessage = (ResponseMessage)message;
+            channel.setErrcode(responseMessage.getErrcode());
+            channel.setErrInfo(responseMessage.getErrInfo());
+            channel.receive(null);
         }
     }
 

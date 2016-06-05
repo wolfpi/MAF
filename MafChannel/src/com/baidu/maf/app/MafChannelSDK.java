@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.baidu.maf.com.Constant;
 import com.baidu.maf.com.MafContext;
+import com.baidu.maf.processer.RegAppProcesser;
 
 /**
  * Created by hanxin on 2016/5/15.

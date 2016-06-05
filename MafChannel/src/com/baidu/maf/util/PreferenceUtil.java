@@ -15,11 +15,12 @@ public class PreferenceUtil implements Preference{
     private static final String DEVICE_TOKEN = "deviceToken";
     private static final String HeartBeatTime = "lastheartbeat";
     private static final String AppId = "appid";
+    private static final String AppKey = "appkey";
 
     private  SharedPreferences globalPreferences;
     private  SharedPreferences seqPreferences;
     private  SharedPreferences apipreference = null;
-    private  SharedPreferences appIdPreference = null;
+    private  SharedPreferences deviceTokenPreferences = null;
     private  int mSeq = 0;
     private  Context ct = null;
         
@@ -46,10 +47,10 @@ public class PreferenceUtil implements Preference{
             seqPreferences = getTargetContext(context).getSharedPreferences("seq", Context.MODE_WORLD_READABLE + Context.MODE_MULTI_PROCESS + Context.MODE_WORLD_WRITEABLE);
         }
         if (apipreference == null) {
-        	apipreference = context.getSharedPreferences("apikey", Context.MODE_MULTI_PROCESS);
+        	apipreference = context.getSharedPreferences("appkey", Context.MODE_MULTI_PROCESS);
         }
-        if (appIdPreference == null){
-            appIdPreference = context.getSharedPreferences(AppId, Context.MODE_MULTI_PROCESS);
+        if (deviceTokenPreferences == null){
+            deviceTokenPreferences = context.getSharedPreferences("devicetoken", Context.MODE_MULTI_PROCESS);
         }
     }
 
@@ -88,29 +89,23 @@ public class PreferenceUtil implements Preference{
     }
 
     public synchronized int getAppId(){
-        if (appIdPreference != null){
-            appIdPreference.getInt(AppId, 0);
-        }
-        return 0;
+        return getInt(PreferenceKey.appId, 0);
     }
 
     public synchronized void saveAppId(int appId){
-        if (appIdPreference != null){
-            Editor editor = appIdPreference.edit();
-            editor.putInt(AppId, appId);
-            editor.commit();
-        }
+        save(PreferenceKey.appId, appId);
     }
+
     public synchronized String getDeviceToken() {
-        if (seqPreferences != null) {
-            return seqPreferences.getString(DEVICE_TOKEN, "");
+        if (deviceTokenPreferences != null) {
+            return deviceTokenPreferences.getString(DEVICE_TOKEN, "");
         }
         return "";
     }
 
     public synchronized void saveDeviceToken(String deviceToken) {
-        if (seqPreferences != null) {
-            Editor editor = seqPreferences.edit();
+        if (deviceTokenPreferences != null) {
+            Editor editor = deviceTokenPreferences.edit();
             editor.putString(DEVICE_TOKEN, deviceToken);
             editor.commit();
         }
@@ -118,8 +113,8 @@ public class PreferenceUtil implements Preference{
     
     public synchronized  String getChannelkey() 
     {
-    	if(seqPreferences != null) {
-        return seqPreferences.getString(ChannelKey, "");
+    	if(deviceTokenPreferences != null) {
+        return deviceTokenPreferences.getString(ChannelKey, "");
     	}
     	return "";
     }
@@ -152,14 +147,14 @@ public class PreferenceUtil implements Preference{
 		*/
 		
 		
-    	if(seqPreferences != null) {
-    	 Editor editor = seqPreferences.edit();
+    	if(deviceTokenPreferences != null) {
+    	 Editor editor = deviceTokenPreferences.edit();
          editor.putString(ChannelKey, channelKey);
  //        editor.apply();
          editor.commit();
     	}
     }
-    
+
     public  boolean save(PreferenceKey key, String value) {
     	if(globalPreferences != null) {
         Editor editor = globalPreferences.edit();
@@ -181,15 +176,7 @@ public class PreferenceUtil implements Preference{
     }
 
     public  boolean save(PreferenceKey key, int value) {
-    	
-    	if(key == PreferenceKey.appId)
-    	{
-    		 Editor editor = apipreference.edit();
-            String name = appendDeviceToken(key);
-            editor.putInt(name, value);
-    	     return editor.commit();
-    	}
-    	else if(globalPreferences != null) {
+        if(globalPreferences != null) {
         Editor editor = globalPreferences.edit();
         editor.putInt(key.name(), value);
         return editor.commit();
@@ -245,12 +232,6 @@ public class PreferenceUtil implements Preference{
     }
 
     public  int getInt(PreferenceKey key, int defaultValue) {
-    	
-    	if(key == PreferenceKey.appId && apipreference != null)
-    	{
-            String name = appendDeviceToken(key);
-            return apipreference.getInt(name,defaultValue);
-    	}
     	if(globalPreferences != null ) {
     		return globalPreferences.getInt(key.name(), defaultValue);
     	}

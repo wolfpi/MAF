@@ -84,7 +84,7 @@ public class MafService extends Service {
             if(ServiceApplication.getInstance().getContext() != null && MafService.class != null)
             {
                 Intent startintent = new Intent(ServiceApplication.getInstance().getContext(), MafService.class);
-                startintent.setAction("com.baidu.mafchannel.service");
+                startintent.setAction("com.baidu.maf.service");
                 try {
                     ServiceApplication.getInstance().getContext().startService(startintent);
                 } catch (Exception e) {

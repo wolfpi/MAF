@@ -41,7 +41,7 @@ public abstract class MessageProcesser extends MessageChannel implements Process
     public void process(MafContext context) throws Exception {
         this.context = context;
         Message req = channelInfo.getReqMessage();
-        setChannelReqData(channelInfo);
+        setChannelReqData(channelInfo, req);
         channelInfo.setNextChannel(this);
         channelInfo.send(req);
     }

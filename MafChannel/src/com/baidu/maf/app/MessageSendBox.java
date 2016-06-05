@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 /**
  * Created by 欣 on 2016/6/1.
  */
-public class MessageSendBox extends MessageChannel{
+public class MessageSendBox extends MessageChannel implements SendBox{
     private MessageRouter messageRouter = null;
     private Map<Integer, ChannelMessage> messageMap = new ConcurrentHashMap<>();
     private boolean isEnableSend = false;
@@ -31,6 +31,7 @@ public class MessageSendBox extends MessageChannel{
 
     public void initialize(MafContext context){
         this.mafContext = context;
+        mafContext.setSendBox(this);
         setNextChannel(messageRouter);
         messageRouter.initialize(context);
     }
@@ -95,4 +96,6 @@ public class MessageSendBox extends MessageChannel{
     public void setEnableSend(boolean enableSend) {
         isEnableSend = enableSend;
     }
+
+    public void sendBlock()
 }

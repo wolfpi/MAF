@@ -1,6 +1,7 @@
 package com.baidu.maf.message;
 
 import com.baidu.im.frame.pb.ObjDownPacket;
+import com.baidu.maf.app.ProcessorCode;
 
 /**
  * Created by hanxin on 2016/5/17.
@@ -33,9 +34,9 @@ public class DownPacketMessage extends MicroProtoBufRspMessage {
         return downPacket.getBizPackage().getPacketType();
     }
 
-    public int getChannelCode(){
+    public ProcessorCode getChannelCode(){
         ObjDownPacket.DownPacket downPacket = (ObjDownPacket.DownPacket)getMicro();
-        return downPacket.getChannelCode();
+        return ProcessorCode.parse(downPacket.getChannelCode());
     }
 
     public int getBusiCode(){

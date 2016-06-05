@@ -10,6 +10,7 @@ import com.baidu.maf.channel.EChannelId;
 import com.baidu.maf.channel.MessageChannelInfo;
 import com.baidu.maf.channel.MessageProcesser;
 import com.baidu.maf.com.Constant;
+import com.baidu.maf.message.Message;
 import com.baidu.maf.message.MicroProtoBufReqMessage;
 import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.util.LogUtil;
@@ -25,9 +26,9 @@ public class PushConfirmProcesser extends MessageProcesser{
     }
 
     @Override
-    public int setChannelReqData(MessageChannelInfo info) {
+    public int setChannelReqData(MessageChannelInfo info, Message requestMessage) {
 
-        MicroProtoBufReqMessage reqMessage = (MicroProtoBufReqMessage)info.getReqMessage();
+        MicroProtoBufReqMessage reqMessage = (MicroProtoBufReqMessage)requestMessage;
         ProPushConfirm.PushMsgConfirmReq pushMsgConfirmReqBuilder = (ProPushConfirm.PushMsgConfirmReq)reqMessage.getMicro();  // migrate from builder
         for (ProPush.PushOneMsg pushOneMsg : notifyMessage.getMessageList()) {
             if (pushOneMsg.getOfflineMsg() != null) {
@@ -74,7 +75,7 @@ public class PushConfirmProcesser extends MessageProcesser{
     }
 
     @Override
-    public int getChannelRspData(MessageChannelInfo info, int errcode, String errInfo) {
+    public int getChannelRspData(MessageChannelInfo info, Message responseMessage, int errcode, String errInfo) {
         return 0;
     }
 

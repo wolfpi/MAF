@@ -1,22 +1,25 @@
 package com.baidu.maf.app;
 
+import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.MessageChannel;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.message.RequestMessage;
 import com.baidu.maf.message.UpPacketMessage;
-import com.baidu.maf.network.INetworkChangeListener;
+import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
+import com.baidu.maf.processer.RegAppProcesser;
 
 /**
  * Created by 欣 on 2016/5/29.
  */
-public class MafChannelImpl extends MessageChannel implements MafChannel, INetworkChangeListener, MessageProcedureSender {
+public class MafChannelImpl extends MessageChannel implements MafChannel, IChannelChangeListener, MessageProcedureSender {
     private MafContext context = null;
     private String apiKey = null;
     private MessageSendBox messageSendBox = new MessageSendBox(this);
     private MafNotifyListener listener = null;
+    private static String TAG = "MafChannelImpl";
 
     public MafChannelImpl(MafContext context) {
         this.context = context;
@@ -25,6 +28,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, INetwo
 
     public void initialize(){
         messageSendBox.initialize(context);
+        synchronized (messageSendBox.cl)
     }
 
     @Override
@@ -59,6 +63,20 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, INetwo
     @Override
     public void onChanged(NetChannelStatus networkChannelStatus) {
 
+    }
+
+    @Override
+    public void onAvaliable(String channelKey) {
+        int appId = context.getAppId();
+        if (0 == appId){
+            RegAppProcesser processer = new RegAppProcesser(context.getAppKey());
+            try {
+                processer.process(context);
+            }
+            catch (Exception e){
+                LogUtils.e(TAG, e.getMessage());
+            }
+        }
     }
 
     @Override

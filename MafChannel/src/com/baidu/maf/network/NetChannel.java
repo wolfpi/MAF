@@ -20,15 +20,14 @@ import java.util.Arrays;
 /**
  * Created by hanxin on 2016/5/17.
  */
-public class NetChannel implements DataChannel, INetworkChangeListener {
+public class NetChannel implements DataChannel, IChannelChangeListener {
 
     private NetChannelStatus networkStatus = NetChannelStatus.Closed;
     private DataChannel callback = null;
     private NetCoreManager hiCoreManager;
     private NetCoreNotifyCallback hiCoreNotifyCallback = new NetCoreNotifyCallback();
     private PreferenceUtil mPreference = null;
-    private INetworkChangeListener networkChannelListener;
-    private MafCallback saveChannelKeyCallback;
+    private IChannelChangeListener networkChannelListener;
 
 
     public NetChannel(String deviceToken, String channelKey, String sdkVer) {
@@ -60,15 +59,11 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
         this.callback = callback;
     }
 
-    public void setSaveChannelKeyCallback(MafCallback saveChannelKeyCallback) {
-        this.saveChannelKeyCallback = saveChannelKeyCallback;
-    }
-
     public NetChannelStatus getNetChannelStatus() {
         return networkStatus;
     }
 
-    public void setNetworkChannelListener(INetworkChangeListener networkChannelListener) {
+    public void setNetworkChannelListener(IChannelChangeListener networkChannelListener) {
         this.networkChannelListener = networkChannelListener;
     }
 
@@ -89,6 +84,11 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
         if (networkChannelListener != null) {
             networkChannelListener.onChanged(networkChannelStatus);
         }
+    }
+
+    @Override
+    public void onAvaliable(String channelKey) {
+
     }
 
     public void networkChanged(int value) {
@@ -173,9 +173,9 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
                         LogUtils.i("save channelkey. channelkey=" + channelKey);
                         ServiceApplication.getInstance().setChannelKey(channelKey);
                         //mPreference.saveChanneKey(channelKey);
-                        if(saveChannelKeyCallback != null)
+                        if(networkChannelListener != null)
                         {
-                            saveChannelKeyCallback.run(channelKey);
+                            networkChannelListener.onAvaliable(channelKey);
                             //LogUtils.i("get channelKeyis:"+ mPreference.getChannelkey());
                         }
                     }
@@ -184,10 +184,10 @@ public class NetChannel implements DataChannel, INetworkChangeListener {
                         channelKey = mPreference.getChannelkey();
                         if (!TextUtils.isEmpty(channelKey))
                         {
-                            if(saveChannelKeyCallback != null)
+                            if(networkChannelListener != null)
                             {
                                 ServiceApplication.getInstance().setChannelKey(channelKey);
-                                saveChannelKeyCallback.run(channelKey);
+                                networkChannelListener.onAvaliable(channelKey);
                                 LogUtils.i("get channelkey confirm:" + channelKey);
                             }
                         }

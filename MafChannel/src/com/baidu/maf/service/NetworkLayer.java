@@ -10,7 +10,7 @@ import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.RegChannelMessage;
 import com.baidu.maf.message.UpPacketMessage;
-import com.baidu.maf.network.INetworkChangeListener;
+import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannel;
 import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.util.*;
@@ -46,13 +46,15 @@ public class NetworkLayer implements DataChannel{
         LogUtil.printMainProcess("start to initialize network channel.");
 
         networkChannel = new NetChannel(preference.getDeviceToken(), preference.getChannelkey(), "Android_1_0_0_0");
+
+        networkChannel.setNextChannel(this);
     }
 
-    public void Initialized()
+    public void initialized()
     {
         if (networkChannel != null) {
 
-            networkChannel.setNetworkChannelListener(new INetworkChangeListener() {
+            networkChannel.setNetworkChannelListener(new IChannelChangeListener() {
                 @Override
                 public void onChanged(NetChannelStatus networkChannelStatus) {
                     try {
@@ -61,13 +63,11 @@ public class NetworkLayer implements DataChannel{
                         LogUtil.e(TAG, e);
                     }
                 }
-            });
 
-            networkChannel.setSaveChannelKeyCallback(new MafCallback() {
                 @Override
-                public void run(Object var1) {
+                public void onAvaliable(String channelKey) {
                     RegChannelMessage regChannelMessage = new RegChannelMessage();
-                    regChannelMessage.setChannelData((String)var1);
+                    regChannelMessage.setChannelData(channelKey);
                     try {
                         receiveChannel.receive(regChannelMessage);
                     }
@@ -76,6 +76,8 @@ public class NetworkLayer implements DataChannel{
                     }
                 }
             });
+
+            networkChannel.connect();
         }
     }
     
@@ -121,7 +123,7 @@ public class NetworkLayer implements DataChannel{
             LogUtil.printProtocol("发送-------->\r\n" + ProtobufLogUtil.print((UpPacket)upPacketMessage.getMicro()) + "\r\nlen="
                     + upPacket.toByteArray().length);
             if (networkChannel != null) {
-                networkChannel.send(upPacket, this);
+                networkChannel.send(upPacket);
             }
         }
     }

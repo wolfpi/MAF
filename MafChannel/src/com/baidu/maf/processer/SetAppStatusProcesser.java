@@ -6,6 +6,7 @@ import com.baidu.maf.channel.EChannelId;
 import com.baidu.maf.channel.MessageChannelInfo;
 import com.baidu.maf.channel.MessageMicroChannel;
 import com.baidu.maf.channel.MessageProcesser;
+import com.baidu.maf.message.Message;
 
 /**
  * Created by hanxin on 2016/5/23.
@@ -20,7 +21,7 @@ public class SetAppStatusProcesser extends MessageProcesser {
     }
 
     @Override
-    public int setChannelReqData(MessageChannelInfo info) {
+    public int setChannelReqData(MessageChannelInfo info, Message requestMessage) {
         MessageMicroChannel.MessageMicroChannelInfo channelInfo = (MessageMicroChannel.MessageMicroChannelInfo)info;
         ProSetAppStatus.SetAppStatusReq req = channelInfo.getReq();
         req.addAppIds(appId);
@@ -30,7 +31,7 @@ public class SetAppStatusProcesser extends MessageProcesser {
     }
 
     @Override
-    public int getChannelRspData(MessageChannelInfo info, int errcode, String errInfo) {
+    public int getChannelRspData(MessageChannelInfo info, Message responseMessage, int errcode, String errInfo) {
         MessageMicroChannel.MessageMicroChannelInfo channelInfo = (MessageMicroChannel.MessageMicroChannelInfo)info;
 
         return 0;
