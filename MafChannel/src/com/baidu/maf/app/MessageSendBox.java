@@ -96,6 +96,4 @@ public class MessageSendBox extends MessageChannel implements SendBox{
     public void setEnableSend(boolean enableSend) {
         isEnableSend = enableSend;
     }
-
-    public void sendBlock()
 }

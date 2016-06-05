@@ -9,7 +9,9 @@ import com.baidu.maf.message.RequestMessage;
 import com.baidu.maf.message.UpPacketMessage;
 import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
+import com.baidu.maf.processer.HeartBeatProcesser;
 import com.baidu.maf.processer.RegAppProcesser;
+import com.baidu.maf.util.LogUtil;
 
 /**
  * Created by 欣 on 2016/5/29.
@@ -20,6 +22,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
     private MessageSendBox messageSendBox = new MessageSendBox(this);
     private MafNotifyListener listener = null;
     private static String TAG = "MafChannelImpl";
+    private Object lock = new Object();
 
     public MafChannelImpl(MafContext context) {
         this.context = context;
@@ -28,7 +31,14 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
 
     public void initialize(){
         messageSendBox.initialize(context);
-        synchronized (messageSendBox.cl)
+        synchronized (lock){
+            try{
+                lock.wait(1000);
+            }
+            catch (InterruptedException e){
+                LogUtils.e(TAG, "Interrupt");
+            }
+        }
     }
 
     @Override
@@ -70,6 +80,8 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
         int appId = context.getAppId();
         if (0 == appId){
             RegAppProcesser processer = new RegAppProcesser(context.getAppKey());
+            processer.setLock(lock);
+            processer.setNextChannel(messageSendBox);
             try {
                 processer.process(context);
             }
@@ -77,6 +89,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
                 LogUtils.e(TAG, e.getMessage());
             }
         }
+        HeartBeatProcesser heartBeatProcesser = new HeartBeatProcesser();
     }
 
     @Override

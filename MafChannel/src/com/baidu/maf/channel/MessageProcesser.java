@@ -26,6 +26,14 @@ public abstract class MessageProcesser extends MessageChannel implements Process
         this.errInfo = errInfo;
     }
 
+    public int getErrCode() {
+        return errCode;
+    }
+
+    public String getErrInfo() {
+        return errInfo;
+    }
+
     @Override
     public void send(Message upPacket) throws Exception {
         UpPacketMessage upPacketMessage = new UpPacketMessage();

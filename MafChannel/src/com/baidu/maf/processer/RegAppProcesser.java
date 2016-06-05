@@ -20,10 +20,15 @@ import com.baidu.maf.util.SignatureUtil;
  */
 public class RegAppProcesser extends MessageProcesser {
     private String apiKey = null;
+    private Object lock = null;
 
     public RegAppProcesser(String apiKey) {
         super(EChannelId.RegApp);
         this.apiKey = apiKey;
+    }
+
+    public void setLock(Object lock) {
+        this.lock = lock;
     }
 
     @Override
@@ -41,13 +46,16 @@ public class RegAppProcesser extends MessageProcesser {
         LogUtil.printMainProcess("get secure key = " + secureKey);
         secureKey = MD5Util.getMD5(secureKey);
         LogUtil.printMainProcess("get MD5(secure key) = " + secureKey);
-        req.setChannelKey();
+        req.setChannelKey(getMafContext().getChannelKey());
         req.setSign(secureKey);
         return 0;
     }
 
     @Override
     public int getChannelRspData(MessageChannelInfo info, Message responseMessage, int errcode, String errInfo) {
+        synchronized (lock){
+            lock.notify();
+        }
         return 0;
     }
 }
