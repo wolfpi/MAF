@@ -31,7 +31,6 @@ public class MessageSendBox extends MessageChannel implements SendBox{
 
     public void initialize(MafContext context){
         this.mafContext = context;
-        mafContext.setSendBox(this);
         setNextChannel(messageRouter);
         messageRouter.initialize(context);
     }

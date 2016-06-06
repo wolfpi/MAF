@@ -77,4 +77,8 @@ public abstract class MessageProcesser extends MessageChannel implements Process
     public MafContext getMafContext() {
         return context;
     }
+
+    public MessageChannelInfo getChannelInfo() {
+        return channelInfo;
+    }
 }

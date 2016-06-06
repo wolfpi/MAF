@@ -5,7 +5,7 @@ import android.content.Context;
 
 public interface Preference {
     
-    public void initialize(Context context, String apiKey) ;
+    public void initialize(Context context, String key) ;
 
     public  int getSeq() ;
 

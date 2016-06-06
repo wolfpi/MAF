@@ -2,10 +2,9 @@ package com.baidu.maf.com;
 
 import android.content.Context;
 
-import com.baidu.maf.app.SendBox;
 import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
-import com.baidu.maf.util.PreferenceUtil;
+import com.baidu.maf.util.MafPreference;
 
 /**
  * Created by hanxin on 2016/5/25.
@@ -16,8 +15,7 @@ public class MafContext {
     private String appKey = null;
     private String channelKey = null;
     private IChannelChangeListener networkChangeListener = null;
-    private SendBox sendBox = null;
-    private PreferenceUtil mPreference = new PreferenceUtil();
+    private MafPreference mPreference = new MafPreference();
 
     public MafContext(Context context, String appKey) {
         this.context = context;
@@ -68,11 +66,7 @@ public class MafContext {
         networkChangeListener.onChanged(status);
     }
 
-    public void setSendBox(SendBox sendBox) {
-        this.sendBox = sendBox;
-    }
-
-    public SendBox getSendBox() {
-        return sendBox;
+    public void onAvaliable(String channelKey){
+        networkChangeListener.onAvaliable(channelKey);
     }
 }

@@ -37,6 +37,9 @@ public class MessageMicroChannel extends PacketChannel{
         private MicroProtoBufMessage rsp;
         private MessageProcesser channel;
         private EChannelId channelId;
+        private int appId;
+        private String sessionId;
+        private long uid;
 
         @Override
         public void setChannelId(EChannelId channelId) {
@@ -88,8 +91,23 @@ public class MessageMicroChannel extends PacketChannel{
             Message rsp = getRspMessage();
             if (null != rsp){
                 rsp = downPacketMessage.parseMessage(rsp);
+                appId = downPacketMessage.getAppId();
+                sessionId = downPacketMessage.getSessionId();
+                uid = downPacketMessage.getUid();
                 channel.getChannelRspData(this, rsp, downPacketMessage.getBusiCode(), "");
             }
+        }
+
+        public int getAppId() {
+            return appId;
+        }
+
+        public String getSessionId() {
+            return sessionId;
+        }
+
+        public long getUid() {
+            return uid;
         }
 
         @Override

@@ -298,11 +298,9 @@ public class AppBindChannel extends MessageChannel {
                     if(!regChannelMessage.getChannelData().equals(olderChannelkey))
                     {
                         mafContext.setChannelKey(regChannelMessage.getChannelData());
-                        SendBox sendBox = mafContext.getSendBox();
-                        sendBox.resend();
                     }
                     LogUtil.printMainProcess(TAG, "Receive channelKey msg: " + regChannelMessage.getChannelData());
-
+                    mafContext.onAvaliable(mafContext.getChannelKey());
                 } catch (RuntimeException e) {
                     LogUtil.printError(e);
                 }

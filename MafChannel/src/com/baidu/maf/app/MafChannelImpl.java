@@ -89,7 +89,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
                 LogUtils.e(TAG, e.getMessage());
             }
         }
-        HeartBeatProcesser heartBeatProcesser = new HeartBeatProcesser();
+        messageSendBox.resend();
     }
 
     @Override

@@ -26,7 +26,6 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
     private DataChannel callback = null;
     private NetCoreManager hiCoreManager;
     private NetCoreNotifyCallback hiCoreNotifyCallback = new NetCoreNotifyCallback();
-    private PreferenceUtil mPreference = null;
     private IChannelChangeListener networkChannelListener;
 
 
@@ -181,7 +180,7 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
                     }
                     else
                     {
-                        channelKey = mPreference.getChannelkey();
+                        channelKey = ServiceApplication.getInstance().getChannelKey();
                         if (!TextUtils.isEmpty(channelKey))
                         {
                             if(networkChannelListener != null)

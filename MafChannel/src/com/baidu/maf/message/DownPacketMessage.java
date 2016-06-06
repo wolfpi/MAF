@@ -49,6 +49,16 @@ public class DownPacketMessage extends MicroProtoBufRspMessage {
         return downPacket.getBizPackage().getBizData().toByteArray();
     }
 
+    public String getSessionId(){
+        ObjDownPacket.DownPacket downPacket = (ObjDownPacket.DownPacket)getMicro();
+        return downPacket.getSessionId();
+    }
+
+    public long getUid(){
+        ObjDownPacket.DownPacket downPacket = (ObjDownPacket.DownPacket)getMicro();
+        return downPacket.getUid();
+    }
+
     public Message parseMessage(Message rspMessage){
         ObjDownPacket.DownPacket downPacket = (ObjDownPacket.DownPacket)getMicro();
         if (rspMessage.parseFrom(downPacket.getBizPackage().getBizData().toByteArray())){

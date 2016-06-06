@@ -11,10 +11,10 @@ import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.processer.PushConfirmProcesser;
 import com.baidu.maf.processer.SetAppStatusProcesser;
+import com.baidu.maf.util.MafPreference;
 import com.baidu.maf.util.ConfigUtil;
 import com.baidu.maf.util.DeviceInfoUtil;
 import com.baidu.maf.util.LogUtil;
-import com.baidu.maf.util.PreferenceUtil;
 import com.baidu.maf.util.StringUtil;
 
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class ServiceApplication {
     private ServiceChannel serviceChannel;
     private NetworkLayer networkLayer;
     private Handler handler;
-    private PreferenceUtil mPreference = null;
+    private MafPreference mPreference = null;
     private int  mSeq = 100 ;
     private int  mOutAppSeq = 9000100;
     private int  mCurOutAppSeq = mOutAppSeq;
@@ -103,7 +103,7 @@ public class ServiceApplication {
     public void initialize(Context context) {
         handler = new Handler(Looper.getMainLooper());
 
-        mPreference = new PreferenceUtil();
+        mPreference = new MafPreference();
         mPreference.initialize(context, null);
 
         if (StringUtil.isStringInValid(mPreference.getDeviceToken())){

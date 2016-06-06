@@ -5,7 +5,6 @@ import com.apkfuns.logutils.LogUtils;
 import com.baidu.im.frame.pb.ObjDownPacket.DownPacket;
 import com.baidu.im.frame.pb.ObjUpPacket.UpPacket;
 import com.baidu.maf.channel.DataChannel;
-import com.baidu.maf.com.MafCallback;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.RegChannelMessage;
@@ -38,7 +37,7 @@ public class NetworkLayer implements DataChannel{
      * @throws IOException
      * 
      */
-    public NetworkLayer(PreferenceUtil preference) throws IOException {
+    public NetworkLayer(MafPreference preference) throws IOException {
 
         if (preference == null)
             throw new RuntimeException("preference can not be null");
