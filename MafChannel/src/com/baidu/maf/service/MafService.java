@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.os.SystemClock;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.util.LogUtil;
 import com.baidu.maf.util.ServiceControlUtil;
 
@@ -31,7 +30,7 @@ public class MafService extends Service {
         startForeground(0, notification);
 
         try {
-            LogUtils.d(TAG, "service onCreate.");
+            LogUtil.d(TAG, "service onCreate.");
             ServiceApplication.getInstance().initialize(this);
 
             // service杀不死
@@ -44,7 +43,7 @@ public class MafService extends Service {
             manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerAtTime, interval, pendingIntent);
 
         } catch (RuntimeException e) {
-            LogUtils.e(TAG, e);
+            LogUtil.e(TAG, e);
         }
     }
 
@@ -88,7 +87,7 @@ public class MafService extends Service {
                 try {
                     ServiceApplication.getInstance().getContext().startService(startintent);
                 } catch (Exception e) {
-                    LogUtils.e(TAG, "failed to start service", e);
+                    LogUtil.e(TAG, "failed to start service", e);
                 }
             }
         }

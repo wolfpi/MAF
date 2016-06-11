@@ -1,10 +1,10 @@
 package com.baidu.maf.network;
 
 import android.text.TextUtils;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.com.Buffer;
 import com.baidu.maf.com.MafCallback;
+import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.network.jni.IEvtCallback;
@@ -27,17 +27,18 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
     private NetCoreManager hiCoreManager;
     private NetCoreNotifyCallback hiCoreNotifyCallback = new NetCoreNotifyCallback();
     private IChannelChangeListener networkChannelListener;
+    private static String TAG = "NetChannel";
 
 
-    public NetChannel(String deviceToken, String channelKey, String sdkVer) {
-        LogUtils.i("NetChannel", "start to initialize hichannel...");
-        hiCoreManager = new NetCoreManager(deviceToken, channelKey, sdkVer);
+    public NetChannel(MafContext mafContext) {
+        LogUtil.i("NetChannel", "start to initialize hichannel...");
+        hiCoreManager = new NetCoreManager(mafContext);
     }
 
     @Override
     public void send(Message upPacket) {
         if (getNetChannelStatus() == NetChannelStatus.Closed) {
-            LogUtils.e("NetChannel", "send error for the channel had been closed.");
+            LogUtil.e("NetChannel", "send error for the channel had been closed.");
         }
         Buffer buffer = new Buffer();
         upPacket.serializeTo(buffer);
@@ -47,7 +48,7 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
     @Override
     public void receive(Message downPacket) throws Exception{
         if (downPacket == null) {
-            LogUtils.d("received a null downPacket.", null);
+            LogUtil.d("ChannelMessage", "received a null downPacket.");
             return;
         }
         callback.receive(downPacket);
@@ -68,11 +69,11 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
 
     public synchronized void connect(){
         if (getNetChannelStatus() == NetChannelStatus.Closed) {
-            LogUtils.d("NetChannel", "event: init channel.");
+            LogUtil.d("NetChannel", "event: init channel.");
             hiCoreManager.initHicore(ServiceApplication.getInstance().getContext());
             hiCoreManager.setListener(hiCoreNotifyCallback);
             int result = hiCoreManager.connet();
-            LogUtils.d("success to connect hichannel." + result);
+            LogUtil.d("NetChannel", "success to connect hichannel." + result);
             onChanged(NetChannelStatus.Connecting);
         }
     }
@@ -122,30 +123,30 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
         private static final String TAG = "HiCoreNotifyCallback";
 
         protected void finalize() {
-            LogUtils.i(TAG, "HiCoreNotifyCallback::finalize()");
+            LogUtil.i(TAG, "HiCoreNotifyCallback::finalize()");
         }
 
         @Override
         public void notify(byte[] data, int len, int seq) {
 
             if (getNetChannelStatus() == NetChannelStatus.Closed) {
-                LogUtils.i(TAG, "notify error for the channel had been closed.");
+                LogUtil.i(TAG, "notify error for the channel had been closed.");
             }
             try {
 
                 if (data == null) {
-                    LogUtils.i("HiChannel", "receive a null data");
+                    LogUtil.i("HiChannel", "receive a null data");
                     return;
                 }
 
                 if (data.length != len) {
-                    LogUtils.i("HiChannel", "data.length != len.  " + data.length + ":" + len);
+                    LogUtil.i("HiChannel", "data.length != len.  " + data.length + ":" + len);
                     return;
                 }
 
                 DownPacketMessage downPacketMessage = new DownPacketMessage();
                 if (downPacketMessage.parseFrom(data)){
-                    LogUtils.e("NetChannel",
+                    LogUtil.e("NetChannel",
                             "receive a unkown packe, len = " + data.length + "  data =" + Arrays.toString(data));
                 }
                 // ServiceApplication.getInstance().getNetworkLayer().onReceive(downPacket);
@@ -155,27 +156,27 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
                 // NetworkLayer.saveProtocolFile(downPacket);
             } catch (Throwable t) {
 
-                LogUtils.i("hichannel error in message send to in APP", t.getMessage());
+                LogUtil.i("hichannel error in message send to in APP", t.getMessage());
             }
         }
 
         public void notify(LoginState_T state, long err, LoginResult_T res) {
 
             if (getNetChannelStatus() == NetChannelStatus.Closed) {
-                LogUtils.i(TAG, "notify loginState error for the channel had been closed.");
+                LogUtil.i(TAG, "notify loginState error for the channel had been closed.");
             }
             try {
                 String channelKey = "";
                 if (state == LoginState_T.LS_LOGGEDIN) {
                     channelKey = res.getChannelkey();
                     if (!TextUtils.isEmpty(channelKey)) {
-                        LogUtils.i("save channelkey. channelkey=" + channelKey);
+                        LogUtil.i("NetChannel", "save channelkey. channelkey=" + channelKey);
                         ServiceApplication.getInstance().setChannelKey(channelKey);
                         //mPreference.saveChanneKey(channelKey);
                         if(networkChannelListener != null)
                         {
                             networkChannelListener.onAvaliable(channelKey);
-                            //LogUtils.i("get channelKeyis:"+ mPreference.getChannelkey());
+                            //LogUtil.i("get channelKeyis:"+ mPreference.getChannelkey());
                         }
                     }
                     else
@@ -187,28 +188,28 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
                             {
                                 ServiceApplication.getInstance().setChannelKey(channelKey);
                                 networkChannelListener.onAvaliable(channelKey);
-                                LogUtils.i("get channelkey confirm:" + channelKey);
+                                LogUtil.i(TAG, "get channelkey confirm:" + channelKey);
                             }
                         }
                     }
                     if (TextUtils.isEmpty(channelKey)) {
-                        LogUtils.i("hichannel error, did not return channelkey from hichannel.");
+                        LogUtil.i(TAG, "hichannel error, did not return channelkey from hichannel.");
                     } else {
-                        LogUtils.i("hichannel is ready now.");
+                        LogUtil.i(TAG, "hichannel is ready now.");
                         onChanged(NetChannelStatus.Connected);
                         //ServiceApplication.getInstance().getTransactionFlow().outAppHeartbeat();
                     }
                 } else if (state == LoginState_T.LS_UNLOGIN) {
                     // 掉线
-                    LogUtils.i("hichannel is offline now.");
+                    LogUtil.i(TAG, "hichannel is offline now.");
                     onChanged(NetChannelStatus.Disconnected);
                 } else if (state == LoginState_T.LS_LOGGING || state == LoginState_T.LS_RETRYING) {
                     // 连接或者断网重连中
-                    LogUtils.i("hichannel is connecting...");
+                    LogUtil.i(TAG, "hichannel is connecting...");
                     onChanged(NetChannelStatus.Disconnected);
                 } else if (state == LoginState_T.LS_RETRYCOUNTING) {
                     // 重连倒计时中
-                    LogUtils.i("hichannel is counting-down...");
+                    LogUtil.i(TAG, "hichannel is counting-down...");
                     onChanged(NetChannelStatus.Disconnected);
                 } else {
                     // ignore now
@@ -216,7 +217,7 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
 
             } catch (Throwable t) {
 
-                LogUtils.i("hichannel  status error error,", t.getMessage());
+                LogUtil.i("hichannel  status error error,", t.getMessage());
             }
         }
 
@@ -224,8 +225,8 @@ public class NetChannel implements DataChannel, IChannelChangeListener {
             if (err == 1000005) {
                 return;
             }
-            LogUtils.i("收到hichannel的回包~~~~~~~~~~~~~~~~~~~~~onError(long err, int arg1, byte[] data, int len)");
-            LogUtils.i(err + "  " + arg1 + "  " + Arrays.toString(data) + "  " + len);
+            LogUtil.i(TAG, "收到hichannel的回包~~~~~~~~~~~~~~~~~~~~~onError(long err, int arg1, byte[] data, int len)");
+            LogUtil.i(TAG, err + "  " + arg1 + "  " + Arrays.toString(data) + "  " + len);
         }
 
         public void onDnsLookup(byte[] data, int len, int tag) {

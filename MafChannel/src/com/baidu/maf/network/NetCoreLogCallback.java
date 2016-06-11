@@ -1,9 +1,9 @@
 package com.baidu.maf.network;
 
-import com.apkfuns.logutils.LogUtils;
 
 import java.io.UnsupportedEncodingException;
 import com.baidu.maf.network.jni.ILogCallback;
+import com.baidu.maf.util.LogUtil;
 
 public class NetCoreLogCallback extends ILogCallback {
 
@@ -14,9 +14,9 @@ public class NetCoreLogCallback extends ILogCallback {
         try {
             msg = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-            LogUtils.e(TAG, "", e1);
+            LogUtil.e(TAG, "", e1);
         }
-        LogUtils.d(TAG, msg);
+        LogUtil.d(TAG, msg);
     }
 
     public void i(byte[] data, int len) {
@@ -24,9 +24,9 @@ public class NetCoreLogCallback extends ILogCallback {
         try {
             msg = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-            LogUtils.e(TAG, "", e1);
+            LogUtil.e(TAG, "", e1);
         }
-        LogUtils.i(TAG, msg);
+        LogUtil.i(TAG, msg);
     }
 
     public void w(byte[] data, int len) {
@@ -34,9 +34,9 @@ public class NetCoreLogCallback extends ILogCallback {
         try {
             msg = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-            LogUtils.e(TAG, "", e1);
+            LogUtil.e(TAG, "", e1);
         }
-        LogUtils.w(TAG, msg);
+        LogUtil.w(TAG, msg);
     }
 
     public void e(byte[] data, int len) {
@@ -44,9 +44,9 @@ public class NetCoreLogCallback extends ILogCallback {
         try {
             msg = new String(data, "UTF-8");
         } catch (UnsupportedEncodingException e1) {
-            LogUtils.e(TAG, "", e1);
+            LogUtil.e(TAG, "", e1);
         }
-        LogUtils.e(TAG, msg);
+        LogUtil.e(TAG, msg);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.baidu.maf.service;
 
 import android.os.RemoteException;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.im.frame.pb.EnumPacketType;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.channel.DispChannel;
@@ -55,7 +54,7 @@ public class MessageDispatcher extends DispChannel{
                     if (null != channel)
                         channelMap.put(upPacket.getMessageID(), channel);
                     else {
-                        LogUtils.e("MessageDispatcher", "not found app channel");
+                        LogUtil.e("MessageDispatcher", "not found app channel");
                     }
                     int appId = upPacketMessage.getAppId();
                     if (0 != appId) {
@@ -92,7 +91,7 @@ public class MessageDispatcher extends DispChannel{
                                     channel.receive(downPacket);
                                 }
                                 catch (RemoteException e){
-                                    LogUtils.e("MessageDispatcher", "receiveNotify error, appId = " + downPacketMessage.getAppId() + e.getMessage());
+                                    LogUtil.e("MessageDispatcher", "receiveNotify error, appId = " + downPacketMessage.getAppId() + e.getMessage());
                                     // LogUtil.printMainProcess(TAG, "sendMessage: first 7 AppId = " + appId);
                                     AppChannel appChannel = (AppChannel)channel;
                                     appChannel.setbEnable(false);
@@ -115,7 +114,7 @@ public class MessageDispatcher extends DispChannel{
                             channel.receive(downPacket);
                         }
                         catch (RemoteException e){
-                            LogUtils.e("MessageDispatcher", "receiveMessage error,seqId = " + downPacket.getMessageID() + e.getMessage());
+                            LogUtil.e("MessageDispatcher", "receiveMessage error,seqId = " + downPacket.getMessageID() + e.getMessage());
                             // LogUtil.printMainProcess(TAG, "sendMessage: first 7 AppId = " + appId);
                             AppChannel appChannel = (AppChannel)channel;
                             appChannel.setbEnable(false);
@@ -139,7 +138,7 @@ public class MessageDispatcher extends DispChannel{
                             appChannel.receive(downPacket);
                         }
                         catch (RemoteException e){
-                            LogUtils.e("MessageDispatcher", "receive error,seqId = " + downPacket.getMessageID() + e.getMessage());
+                            LogUtil.e("MessageDispatcher", "receive error,seqId = " + downPacket.getMessageID() + e.getMessage());
                             // LogUtil.printMainProcess(TAG, "sendMessage: first 7 AppId = " + appId);
 
                             appChannel.setbEnable(false);

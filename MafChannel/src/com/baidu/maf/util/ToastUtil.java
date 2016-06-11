@@ -3,14 +3,13 @@
  */
 package com.baidu.maf.util;
 
-import com.baidu.im.constant.Constant;
-import com.baidu.im.frame.inapp.InAppApplication;
-import com.baidu.im.outapp.OutAppApplication;
 
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.widget.Toast;
+
+import com.baidu.maf.com.Constant;
 
 /**
  * @author zhaowei10
@@ -22,18 +21,18 @@ public class ToastUtil {
     private static Handler handler = new Handler(Looper.getMainLooper());
     private static Toast toast = null;
     private static final Object synObj = new Object();
+    private static Context context = null;
+
+    public static void intialize(Context context){
+        ToastUtil.context = context;
+    }
 
     public static void toast(String text) {
         if (!SWITCH || !Constant.DEBUG) {
             return;
         }
         try {
-
-            if (InAppApplication.getInstance().getContext() != null) {
-                showMessage(InAppApplication.getInstance().getContext(), text);
-            } else if (OutAppApplication.getInstance().getContext() != null) {
-                showMessage(OutAppApplication.getInstance().getContext(), text);
-            }
+            showMessage(context, text);
         } catch (Exception e) {
             LogUtil.e(TAG, e);
         }

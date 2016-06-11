@@ -18,6 +18,6 @@ public class ReconnectMessage extends AppMessage {
 
     @Override
     public MessageTypeEnum getMessageType() {
-        return MessageTypeEnum.Reconnect;
+        return MessageTypeEnum.RECONNECT;
     }
 }

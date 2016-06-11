@@ -1,5 +1,7 @@
 package com.baidu.maf.app;
 
+import com.baidu.maf.listener.ClientStatusListener;
+
 /**
  * Created by hanxin on 2016/5/15.
  */
@@ -42,4 +44,16 @@ public interface MafUserChannel extends  MafChannel, MessageProcedureSender{
      * @param procedure 需要发送的消息过程
      */
     public void send(MafMessageProcedure procedure) throws  Exception;
+
+    /**
+     *
+     * <b>设置用户状态变更回调</b>
+     *
+     * <p>
+     * 当用户状态变更的时候，会调研此方法
+     * </p>
+     *
+     * @param listener 回调的接口
+     */
+    public void setClientStatusListener(ClientStatusListener listener);
 }

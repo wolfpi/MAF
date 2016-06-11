@@ -1,8 +1,9 @@
 package com.baidu.maf.util;
 
+import com.baidu.maf.com.Constant;
+
 import java.util.HashMap;
 
-import com.baidu.im.constant.Constant;
 
 public class AccountUtil {
 

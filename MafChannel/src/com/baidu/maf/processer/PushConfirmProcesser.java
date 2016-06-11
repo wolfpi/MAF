@@ -2,7 +2,6 @@ package com.baidu.maf.processer;
 
 import android.content.Intent;
 
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.im.frame.pb.ObjInformMessage;
 import com.baidu.im.frame.pb.ProPush;
 import com.baidu.im.frame.pb.ProPushConfirm;
@@ -32,7 +31,7 @@ public class PushConfirmProcesser extends MessageProcesser{
         ProPushConfirm.PushMsgConfirmReq pushMsgConfirmReqBuilder = (ProPushConfirm.PushMsgConfirmReq)reqMessage.getMicro();  // migrate from builder
         for (ProPush.PushOneMsg pushOneMsg : notifyMessage.getMessageList()) {
             if (pushOneMsg.getOfflineMsg() != null) {
-                LogUtils.i("receive a offline message.  messageId=" + pushOneMsg.getMsgId());
+                LogUtil.i("PushConfirmProcesser", "receive a offline message.  messageId=" + pushOneMsg.getMsgId());
 
                 if (pushOneMsg.getConfirmMode() == ProPush.ALWAYS_YES) {
                     ProPushConfirm.PushMsgStatus pushMsgStatusBuilder = new ProPushConfirm.PushMsgStatus();  // migrate from builder
@@ -58,7 +57,7 @@ public class PushConfirmProcesser extends MessageProcesser{
 
                         getMafContext().getContext().sendBroadcast(intent);
 
-                        LogUtils.i("PushConfirmProcesser", "broadCast send ok");
+                        LogUtil.i("PushConfirmProcesser", "broadCast send ok");
 
                         //NotificationUtil.showNormal(OutAppApplication.getInstance().getContext(), informMessage);
                     }

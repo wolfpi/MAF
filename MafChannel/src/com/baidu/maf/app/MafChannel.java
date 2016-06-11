@@ -1,6 +1,8 @@
 package com.baidu.maf.app;
 
 
+import com.baidu.maf.listener.MafNotifyListener;
+
 /**
  * Created by hanxin on 2016/5/15.
  */

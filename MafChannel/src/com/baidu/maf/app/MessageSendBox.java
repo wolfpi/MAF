@@ -1,12 +1,12 @@
 package com.baidu.maf.app;
 
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.channel.MessageChannel;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.message.UpPacketMessage;
+import com.baidu.maf.util.LogUtil;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -45,7 +45,7 @@ public class MessageSendBox extends MessageChannel implements SendBox{
                         channelMessage.receive(downPacket);
                     }
                     catch (Exception e){
-                        LogUtils.e("MessageSendBox", "exception:" + e.getMessage());
+                        LogUtil.e("MessageSendBox", "exception:" + e.getMessage());
                     }
                 }
                 else {
@@ -84,7 +84,7 @@ public class MessageSendBox extends MessageChannel implements SendBox{
                             entry.getValue().send();
                         }
                         catch (Exception e){
-                            LogUtils.e("MessageSendBox", "Retry Failed");
+                            LogUtil.e("MessageSendBox", "Retry Failed");
                         }
                     }
                 });

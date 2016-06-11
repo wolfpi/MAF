@@ -26,4 +26,16 @@ public class UserPreference {
     public String getSessionId() {
         return globalPreferences.getString(PreferenceKey.sessionId);
     }
+
+    public void saveUid(long uid){
+        globalPreferences.save(PreferenceKey.uid, uid);
+    }
+
+    public void saveSessionId(String sessionId){
+        globalPreferences.save(PreferenceKey.sessionId, sessionId);
+    }
+
+    public void reset(){
+        globalPreferences.clear();
+    }
 }

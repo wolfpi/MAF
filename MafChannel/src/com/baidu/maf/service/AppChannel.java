@@ -2,10 +2,10 @@ package com.baidu.maf.service;
 
 import android.os.Bundle;
 import android.os.Messenger;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.com.Buffer;
 import com.baidu.maf.message.Message;
+import com.baidu.maf.util.LogUtil;
 
 /**
  * Created by hanxin on 2016/5/20.
@@ -66,7 +66,7 @@ public class AppChannel implements DataChannel {
         // LogUtil.printMainProcess(TAG, "sendMessage: ppId = " + appId);
         clientMsger.send(message);
         // LogUtil.printMainProcess(TAG, "sendMessage: first  5 AppId = " + appId);
-        LogUtils.d("AppChannel", "sendMessage: messenger = " + clientMsger.hashCode());
+        LogUtil.d("AppChannel", "sendMessage: messenger = " + clientMsger.hashCode());
     }
 
     @Override

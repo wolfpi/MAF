@@ -1,7 +1,6 @@
 package com.baidu.maf.service;
 
 import android.os.*;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.message.CheckOffLineMessage;
 import com.baidu.maf.message.MessageTypeEnum;
@@ -34,7 +33,7 @@ public class ServiceChannel implements DataChannel {
                 receive(message);
             }
             catch (Exception e){
-                LogUtils.e("ServiceChannel", "receive message exception" + e.getMessage());
+                LogUtil.e("ServiceChannel", "receive message exception" + e.getMessage());
             }
         }
     };
@@ -60,7 +59,7 @@ public class ServiceChannel implements DataChannel {
             dispatcher.receive(checkOffLineMessage);
         }
         catch (Exception e){
-            LogUtils.e("ServiceChannel", "send check offline message failed");
+            LogUtil.e("ServiceChannel", "send check offline message failed");
         }
         isBind = false;
     }
@@ -85,7 +84,7 @@ public class ServiceChannel implements DataChannel {
             receive(networkChangeMessage);
         }
         catch (Exception e){
-            LogUtils.e("error:" + e.getMessage());
+            LogUtil.e(TAG,"error:" + e.getMessage());
         }
     }
 
@@ -128,10 +127,10 @@ public class ServiceChannel implements DataChannel {
                 String channelKey =  ServiceApplication.getInstance().getChannelKey();
                 if(channelKey == null)
                 {
-                    LogUtils.i(TAG, "impossible in channelkey");
+                    LogUtil.i(TAG, "impossible in channelkey");
                 }else
                 {
-                    LogUtils.i(TAG, "channelkey send");
+                    LogUtil.i(TAG, "channelkey send");
                     send(MessageTypeEnum.REGCHANNEL.getType(),
                             channelKey.getBytes(),
                             clientMessenger);
@@ -147,7 +146,7 @@ public class ServiceChannel implements DataChannel {
                 dispatcher.addAppKeyChannel(apiKey, channel);
             }
             catch (RemoteException e){
-                LogUtils.e(TAG, "send regchannel");
+                LogUtil.e(TAG, "send regchannel");
             }
 
             return;

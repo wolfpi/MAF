@@ -1,15 +1,14 @@
 package com.baidu.maf.app;
 
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.MessageChannel;
 import com.baidu.maf.com.MafContext;
+import com.baidu.maf.listener.MafNotifyListener;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.message.RequestMessage;
 import com.baidu.maf.message.UpPacketMessage;
 import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
-import com.baidu.maf.processer.HeartBeatProcesser;
 import com.baidu.maf.processer.RegAppProcesser;
 import com.baidu.maf.util.LogUtil;
 
@@ -27,6 +26,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
     public MafChannelImpl(MafContext context) {
         this.context = context;
         context.setNetworkChangeListener(this);
+        context.setSendBox(messageSendBox);
     }
 
     public void initialize(){
@@ -36,7 +36,7 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
                 lock.wait(1000);
             }
             catch (InterruptedException e){
-                LogUtils.e(TAG, "Interrupt");
+                LogUtil.e(TAG, "Interrupt");
             }
         }
     }
@@ -86,10 +86,9 @@ public class MafChannelImpl extends MessageChannel implements MafChannel, IChann
                 processer.process(context);
             }
             catch (Exception e){
-                LogUtils.e(TAG, e.getMessage());
+                LogUtil.e(TAG, e.getMessage());
             }
         }
-        messageSendBox.resend();
     }
 
     @Override

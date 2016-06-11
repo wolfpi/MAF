@@ -7,6 +7,7 @@ import android.util.Log;
 import com.baidu.maf.com.Constant;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.processer.RegAppProcesser;
+import com.baidu.maf.util.ToastUtil;
 
 /**
  * Created by hanxin on 2016/5/15.
@@ -17,6 +18,10 @@ public class MafChannelSDK {
     private static MafChannelImpl channel = null;
     private static MafUserChannelImpl userChannel = null;
     private static MafContext mafContext = null;
+
+    public static int getVersionCode() {
+        return 35;
+    }
 
     public static synchronized MafChannel getChannelInstByAppKey(){
         if (null == channel && null != mAppkey){
@@ -53,6 +58,8 @@ public class MafChannelSDK {
 
         try {
             mafContext = new MafContext(mContext, mAppkey);
+
+            ToastUtil.intialize(context);
 
             IntentFilter dynamic_filter = new IntentFilter();
             dynamic_filter.addAction(Constant.sdkPushAction);

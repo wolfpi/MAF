@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.NotifyMessage;
 import com.baidu.maf.network.NetChannelStatus;
@@ -16,6 +15,7 @@ import com.baidu.maf.util.ConfigUtil;
 import com.baidu.maf.util.DeviceInfoUtil;
 import com.baidu.maf.util.LogUtil;
 import com.baidu.maf.util.StringUtil;
+import com.baidu.maf.util.ToastUtil;
 
 import java.io.IOException;
 
@@ -36,7 +36,6 @@ public class ServiceApplication {
     private ServiceChannel serviceChannel;
     private NetworkLayer networkLayer;
     private Handler handler;
-    private MafPreference mPreference = null;
     private int  mSeq = 100 ;
     private int  mOutAppSeq = 9000100;
     private int  mCurOutAppSeq = mOutAppSeq;
@@ -103,24 +102,25 @@ public class ServiceApplication {
     public void initialize(Context context) {
         handler = new Handler(Looper.getMainLooper());
 
-        mPreference = new MafPreference();
-        mPreference.initialize(context, null);
+        mafContext = new MafContext(context, null);
 
-        if (StringUtil.isStringInValid(mPreference.getDeviceToken())){
-            mPreference.saveDeviceToken(DeviceInfoUtil.getDeviceToken(context));
+        ToastUtil.intialize(context);
+
+        ServiceConfig.init(context);
+
+        if (StringUtil.isStringInValid(mafContext.getDeviceToken())){
+            mafContext.saveDeviceToken(DeviceInfoUtil.getDeviceToken(context));
         }
         ConfigUtil.load();
 
 
         this.context = context.getApplicationContext();
 
-        mafContext = new MafContext(context, null);
-
         try {
-            networkLayer = new NetworkLayer(mPreference);
+            networkLayer = new NetworkLayer(mafContext);
         }
         catch (IOException e){
-            LogUtils.e(TAG, "error:" + e.getMessage());
+            LogUtil.e(TAG, "error:" + e.getMessage());
         }
         serviceChannel = new ServiceChannel(networkLayer);
         networkLayer.setNextChannel(serviceChannel);

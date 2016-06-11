@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.*;
 
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.MessageChannel;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.*;
@@ -111,7 +110,7 @@ public class AppBindChannel extends MessageChannel {
             try {
                 context.startService(startintent);
             } catch (Exception e) {
-                LogUtil.printImE(TAG, "fail to startService", e);
+                LogUtil.e(TAG, "fail to startService", e);
             }
         }
 
@@ -149,7 +148,7 @@ public class AppBindChannel extends MessageChannel {
             e.printStackTrace();
         }
         catch (Exception e){
-            LogUtils.e("AppBindChannel", "Reconnect Failed" + e.getMessage());
+            LogUtil.e("AppBindChannel", "Reconnect Failed" + e.getMessage());
         }
     }
 
@@ -167,7 +166,7 @@ public class AppBindChannel extends MessageChannel {
             throw e;
         }
         catch (Exception e){
-            LogUtils.e("AppBindChannel", "Regchannel Failed" + e.getMessage());
+            LogUtil.e("AppBindChannel", "Regchannel Failed" + e.getMessage());
         }
     }
 
@@ -253,7 +252,7 @@ public class AppBindChannel extends MessageChannel {
                     receive(timeoutMessage);
                 }
                 catch (Exception e){
-                    LogUtils.e(TAG, e.getMessage());
+                    LogUtil.e(TAG, e.getMessage());
                 }
             }
         }, 1000);

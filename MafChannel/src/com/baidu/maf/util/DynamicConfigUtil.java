@@ -3,8 +3,6 @@ package com.baidu.maf.util;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.baidu.im.frame.utils.PreferenceKey;
-
 /**
  * For demonstrating how to build updateConfigReq or how to parse updateConfigRsp
  */

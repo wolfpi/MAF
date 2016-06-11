@@ -1,11 +1,10 @@
 package com.baidu.maf.app;
-
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.maf.channel.DataChannel;
 import com.baidu.maf.channel.Processer;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.ResponseMessage;
+import com.baidu.maf.util.LogUtil;
 
 /**
  * Created by 欣 on 2016/6/1.
@@ -45,7 +44,7 @@ public class ChannelMessage {
                     channel.setErrcode(ProcessorCode.PARSE_RESPONSE_ERROR.getCode());
                     channel.setErrInfo(ProcessorCode.PARSE_RESPONSE_ERROR.getMsg());
                     channel.receive(null);
-                    LogUtils.e("ChannelMessage", "Paser Down Packet Failed");
+                    LogUtil.e("ChannelMessage", "Paser Down Packet Failed");
                 }
             }
             else {

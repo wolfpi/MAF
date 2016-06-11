@@ -1,76 +1,59 @@
 package com.baidu.maf.util;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import android.text.TextUtils;
 
-import com.baidu.im.constant.Constant;
-import com.baidu.im.constant.Constant.BuildMode;
-import com.baidu.im.constant.Constant.EChannelType;
+import com.baidu.maf.com.Constant;
+
+import java.util.List;
+
 
 public class ConfigUtil {
 
     public static final String TAG = "ConfigUtil";
 
-    private static String ip;
-
-    private static int port;
-
-    private static EChannelType channelType;
+    private static List<Pair<String, Integer>> listIP;
 
     private static boolean  mLoaded = false;
     
     public static void load() {
-        JSONObject config;
+        JSONArray config;
         try {
             String json = null;
 
             // sdk can not be config when in online mode.
-            if (Constant.buildMode != BuildMode.Online) {
+            if (Constant.buildMode != Constant.BuildMode.Online) {
                 json = FileUtil.readStringFromFileInSdkFolder("config.txt");
             }
             if (TextUtils.isEmpty(json)) {
                 config = generateConfig();
             } else {
                 JSONTokener jsonParser = new JSONTokener(json);
-                config = (JSONObject) jsonParser.nextValue();
+                config = (JSONArray) jsonParser.nextValue();
             }
-            ip = config.getString("ip");
-            port = config.getInt("port");
-            channelType = EChannelType.valueOf(config.getString("channel"));
+
+            for (int i = 0; i < config.length(); i++){
+                JSONObject object = config.getJSONObject(i);
+                Pair<String, Integer> ipPair = new Pair<>(object.getString("ip"), object.getInt("port"));
+                listIP.add(ipPair);
+            }
         } catch (JSONException e) {
             LogUtil.e(TAG, e);
             throw new RuntimeException(e);
         }
     }
 
-    public static String getHostIp() {
+    public static List<Pair<String, Integer>> getIPList() {
     	if(!mLoaded)
     	{
     		ConfigUtil.load();
     		mLoaded = true;
     	}
-        return ip;
-    }
-
-    public static int getPort() {
-    	if(!mLoaded)
-    	{
-    		ConfigUtil.load();
-    		mLoaded = true;
-    	}
-        return port;
-    }
-
-    public static EChannelType getChannelType() {
-    	if(!mLoaded)
-    	{
-    		ConfigUtil.load();
-    		mLoaded = true;
-    	}
-        return channelType;
+        return listIP;
     }
 
     /**
@@ -78,20 +61,23 @@ public class ConfigUtil {
      * 
      * @return
      */
-    private static JSONObject generateConfig() {
-        JSONObject config = new JSONObject();
-        try {
-            config.put("ip", Constant.buildMode.getEChannelInfo().getIp());
-            config.put("port", Constant.buildMode.getEChannelInfo().getPort());
-            config.put("channel", Constant.buildMode.getEChannelInfo().getChannelType().name());
-
-            // sdk can not be config when in online mode.
-            if (Constant.buildMode != BuildMode.Online) {
-                FileUtil.writeStringToFileInSdkFolder("config.txt", config.toString());
+    private static JSONArray generateConfig() {
+        JSONArray config = new JSONArray();
+        List<Constant.EChannelInfo> channelInfoList = Constant.EChannelInfo.getIPList();
+        for (Constant.EChannelInfo channelInfo : channelInfoList){
+            JSONObject object = new JSONObject();
+            try {
+                object.put("ip", channelInfo.getIp());
+                object.put("port", channelInfo.getPort());
+                config.put(object);
+            } catch (JSONException e) {
+                LogUtil.e(TAG, e);
+                throw new RuntimeException(e);
             }
-        } catch (JSONException e) {
-            LogUtil.e(TAG, e);
-            throw new RuntimeException(e);
+        }
+        // sdk can not be config when in online mode.
+        if (Constant.buildMode != Constant.BuildMode.Online) {
+            FileUtil.writeStringToFileInSdkFolder("config.txt", config.toString());
         }
         return config;
     }

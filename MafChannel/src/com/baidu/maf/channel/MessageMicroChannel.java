@@ -1,6 +1,9 @@
 package com.baidu.maf.channel;
 
+import com.baidu.im.frame.pb.ObjDownPacket;
+import com.baidu.maf.app.ProcessorCode;
 import com.baidu.maf.message.*;
+import com.baidu.maf.util.BizCodeProcessUtil;
 import com.google.protobuf.micro.MessageMicro;
 
 /**
@@ -82,7 +85,7 @@ public class MessageMicroChannel extends PacketChannel{
 
         @Override
         public void send(Message upPacket) throws Exception {
-            channel.send(getReqMessage());
+            channel.send(upPacket);
         }
 
         @Override
@@ -94,7 +97,8 @@ public class MessageMicroChannel extends PacketChannel{
                 appId = downPacketMessage.getAppId();
                 sessionId = downPacketMessage.getSessionId();
                 uid = downPacketMessage.getUid();
-                channel.getChannelRspData(this, rsp, downPacketMessage.getBusiCode(), "");
+                ProcessorCode processorCode = BizCodeProcessUtil.procProcessorCode("App", (ObjDownPacket.DownPacket) downPacketMessage.getMicro());
+                channel.getChannelRspData(this, rsp, processorCode.getCode(), processorCode.getMsg());
             }
         }
 

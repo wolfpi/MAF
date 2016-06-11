@@ -1,10 +1,9 @@
 package com.baidu.maf.service;
 
-
-import com.apkfuns.logutils.LogUtils;
 import com.baidu.im.frame.pb.ObjDownPacket.DownPacket;
 import com.baidu.im.frame.pb.ObjUpPacket.UpPacket;
 import com.baidu.maf.channel.DataChannel;
+import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.RegChannelMessage;
@@ -37,14 +36,14 @@ public class NetworkLayer implements DataChannel{
      * @throws IOException
      * 
      */
-    public NetworkLayer(MafPreference preference) throws IOException {
+    public NetworkLayer(MafContext mafContext) throws IOException {
 
-        if (preference == null)
+        if (mafContext == null)
             throw new RuntimeException("preference can not be null");
 
         LogUtil.printMainProcess("start to initialize network channel.");
 
-        networkChannel = new NetChannel(preference.getDeviceToken(), preference.getChannelkey(), "Android_1_0_0_0");
+        networkChannel = new NetChannel(mafContext);
 
         networkChannel.setNextChannel(this);
     }
@@ -71,7 +70,7 @@ public class NetworkLayer implements DataChannel{
                         receiveChannel.receive(regChannelMessage);
                     }
                     catch (Exception e){
-                        LogUtils.e("NetworkLayer", "error" + e.getMessage());
+                        LogUtil.e("NetworkLayer", "error" + e.getMessage());
                     }
                 }
             });
@@ -83,7 +82,7 @@ public class NetworkLayer implements DataChannel{
     public NetChannelStatus getNetworkChannelStatus() {
     	if(networkChannel == null)
     	{
-    		LogUtil.printIm(TAG, "networkchannel status can not be null");
+    		LogUtil.e(TAG, "networkchannel status can not be null");
     		return NetChannelStatus.Disconnected;
     	}else
     	{
@@ -111,7 +110,7 @@ public class NetworkLayer implements DataChannel{
 
         }else
         {
-            LogUtil.printIm(TAG, "Channel reconnect error");
+            LogUtil.e(TAG, "Channel reconnect error");
         }
     }
 
@@ -119,7 +118,7 @@ public class NetworkLayer implements DataChannel{
     public void send(Message upPacket) throws Exception {
         if (upPacket != null) {
             UpPacketMessage upPacketMessage = (UpPacketMessage)upPacket;
-            LogUtil.printProtocol("发送-------->\r\n" + ProtobufLogUtil.print((UpPacket)upPacketMessage.getMicro()) + "\r\nlen="
+            LogUtil.i("发送-------->\r\n" + ProtobufLogUtil.print((UpPacket)upPacketMessage.getMicro()) + "\r\nlen="
                     + upPacket.toByteArray().length);
             if (networkChannel != null) {
                 networkChannel.send(upPacket);
@@ -140,13 +139,13 @@ public class NetworkLayer implements DataChannel{
         if (downPacket == null) {
             return;
         }
-        LogUtil.printProtocol("收包<--------\r\n" + ProtobufLogUtil.print((DownPacket) ((DownPacketMessage) downPacket).getMicro()));
+        LogUtil.i("收包<--------\r\n" + ProtobufLogUtil.print((DownPacket) ((DownPacketMessage) downPacket).getMicro()));
 
         try {
             receiveChannel.receive(downPacket);
         }
         catch (Exception e){
-            LogUtils.e("NetworkLayer", "receive message failed");
+            LogUtil.e("NetworkLayer", "receive message failed");
         }
     }
 

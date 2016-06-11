@@ -5,9 +5,12 @@ import com.baidu.maf.channel.EChannelId;
 import com.baidu.maf.channel.MessageChannelInfo;
 import com.baidu.maf.channel.MessageMicroChannel;
 import com.baidu.maf.channel.MessageProcesser;
+import com.baidu.maf.listener.ClientStatusListener;
+import com.baidu.maf.listener.UserStatus;
 import com.baidu.maf.message.DownPacketMessage;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.MicroProtoBufReqMessage;
+import com.baidu.maf.util.UserPreference;
 
 /**
  * Created by hanxin on 2016/5/26.
@@ -15,6 +18,7 @@ import com.baidu.maf.message.MicroProtoBufReqMessage;
 public class LoginProcesser extends MessageProcesser {
     private String userName;
     private String password;
+    private ClientStatusListener listener;
 
     public LoginProcesser(String userName, String password) {
         super(EChannelId.Login);
@@ -37,8 +41,18 @@ public class LoginProcesser extends MessageProcesser {
     public int getChannelRspData(MessageChannelInfo info, Message responseMessage, int errcode, String errInfo) {
         MessageMicroChannel.MessageMicroChannelInfo channelInfo = (MessageMicroChannel.MessageMicroChannelInfo)info;
         if (errcode == 0){
-            getMafContext().
+            getMafContext().setAppId(channelInfo.getAppId());
+            getUserPreference().saveUid(channelInfo.getUid());
+            getUserPreference().saveSessionId(channelInfo.getSessionId());
+            listener.onUserStatusChanged(UserStatus.ONLINE);
+        }
+        else {
+            listener.onLoginError(errcode, errInfo);
         }
         return 0;
+    }
+
+    public void setListener(ClientStatusListener listener) {
+        this.listener = listener;
     }
 }

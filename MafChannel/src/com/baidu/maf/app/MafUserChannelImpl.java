@@ -1,8 +1,14 @@
 package com.baidu.maf.app;
 
+import android.text.TextUtils;
+
 import com.baidu.maf.com.MafContext;
+import com.baidu.maf.listener.ClientStatusListener;
 import com.baidu.maf.message.UpPacketMessage;
 import com.baidu.maf.processer.HeartBeatProcesser;
+import com.baidu.maf.processer.LoginProcesser;
+import com.baidu.maf.processer.LogoutProcesser;
+import com.baidu.maf.util.LogUtil;
 import com.baidu.maf.util.UserPreference;
 
 /**
@@ -11,6 +17,7 @@ import com.baidu.maf.util.UserPreference;
 public class MafUserChannelImpl extends MafChannelImpl implements MafUserChannel {
 
     private MafContext mafContext;
+    private ClientStatusListener listener = null;
 
     public MafUserChannelImpl(MafContext context) {
         super(context);
@@ -26,13 +33,50 @@ public class MafUserChannelImpl extends MafChannelImpl implements MafUserChannel
     }
 
     @Override
-    public void login(String userID, String userToken) {
+    public synchronized void login(String userID, String userToken) {
         userPreference.initialize(mafContext.getContext(), userID);
+        if (TextUtils.isEmpty(userPreference.getSessionId())){
+            LoginProcesser loginProcesser = new LoginProcesser(userID, userToken);
+            loginProcesser.setListener(listener);
+            loginProcesser.setUserPreference(userPreference);
+            try {
+                loginProcesser.process(mafContext);
+            }
+            catch (Exception e){
+                LogUtil.e("MafUserChannelImpl", "login failed" + e.getMessage());
+            }
+        }
+        else {
+            HeartBeatProcesser heartBeatProcesser = new HeartBeatProcesser();
+            heartBeatProcesser.setChannelKey(mafContext.getChannelKey());
+            heartBeatProcesser.setSessionId(userPreference.getSessionId());
+            heartBeatProcesser.setListener(listener);
+            heartBeatProcesser.setUserPreference(userPreference);
+            try{
+                heartBeatProcesser.process(mafContext);
+            }
+            catch (Exception e){
+
+            }
+        }
     }
 
     @Override
     public void logout() {
+        LogoutProcesser logoutProcesser = new LogoutProcesser();
+        logoutProcesser.setUserPreference(userPreference);
+        logoutProcesser.setListener(listener);
+        try {
+            logoutProcesser.process(mafContext);
+        }
+        catch (Exception e){
+            LogUtil.e("MafUserChannelImpl", "logout error:" + e.getMessage());
+        }
+    }
 
+    @Override
+    public void setClientStatusListener(ClientStatusListener listener) {
+        this.listener = listener;
     }
 
     @Override
@@ -71,6 +115,18 @@ public class MafUserChannelImpl extends MafChannelImpl implements MafUserChannel
     @Override
     public void onAvaliable(String channelKey) {
         super.onAvaliable(channelKey);
-        HeartBeatProcesser heartBeatProcesser = new HeartBeatProcesser();
+        if (!TextUtils.isEmpty(userPreference.getSessionId())){
+            HeartBeatProcesser heartBeatProcesser = new HeartBeatProcesser();
+            heartBeatProcesser.setSessionId(userPreference.getSessionId());
+            heartBeatProcesser.setChannelKey(channelKey);
+            heartBeatProcesser.setListener(listener);
+            heartBeatProcesser.setUserPreference(userPreference);
+            try{
+                heartBeatProcesser.process(mafContext);
+            }
+            catch (Exception e){
+                LogUtil.e("MafUserChannelImpl", e.getMessage());
+            }
+        }
     }
 }

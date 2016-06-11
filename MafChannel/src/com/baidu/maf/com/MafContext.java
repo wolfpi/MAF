@@ -2,6 +2,7 @@ package com.baidu.maf.com;
 
 import android.content.Context;
 
+import com.baidu.maf.app.SendBox;
 import com.baidu.maf.network.IChannelChangeListener;
 import com.baidu.maf.network.NetChannelStatus;
 import com.baidu.maf.util.MafPreference;
@@ -16,6 +17,7 @@ public class MafContext {
     private String channelKey = null;
     private IChannelChangeListener networkChangeListener = null;
     private MafPreference mPreference = new MafPreference();
+    private SendBox sendBox = null;
 
     public MafContext(Context context, String appKey) {
         this.context = context;
@@ -50,6 +52,14 @@ public class MafContext {
         mPreference.saveChanneKey(channelKey);
     }
 
+    public String getDeviceToken(){
+        return mPreference.getDeviceToken();
+    }
+
+    public void saveDeviceToken(String deviceToken){
+        mPreference.saveDeviceToken(deviceToken);
+    }
+
     public Context getContext() {
         return context;
     }
@@ -68,5 +78,13 @@ public class MafContext {
 
     public void onAvaliable(String channelKey){
         networkChangeListener.onAvaliable(channelKey);
+    }
+
+    public void setSendBox(SendBox sendBox) {
+        this.sendBox = sendBox;
+    }
+
+    public void triggerResend(){
+        sendBox.resend();
     }
 }

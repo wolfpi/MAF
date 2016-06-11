@@ -3,6 +3,7 @@ package com.baidu.maf.channel;
 import com.baidu.maf.com.MafContext;
 import com.baidu.maf.message.Message;
 import com.baidu.maf.message.UpPacketMessage;
+import com.baidu.maf.util.UserPreference;
 
 /**
  * Created by hanxin on 2016/5/25.
@@ -12,6 +13,8 @@ public abstract class MessageProcesser extends MessageChannel implements Process
     private MafContext context;
     private int errCode;
     private String errInfo;
+    private int resendCount = 0;
+    private UserPreference userPreference = null;
 
     public MessageProcesser(EChannelId channelId) {
         this.channelInfo = createChannelInfo(channelId);
@@ -36,10 +39,17 @@ public abstract class MessageProcesser extends MessageChannel implements Process
 
     @Override
     public void send(Message upPacket) throws Exception {
-        UpPacketMessage upPacketMessage = new UpPacketMessage();
-        upPacketMessage.setMessage(upPacket);
+        UpPacketMessage upPacketMessage = (UpPacketMessage)upPacket;
         upPacketMessage.setAppKey(context.getAppKey());
         upPacketMessage.setAppId(context.getAppId());
+        if (userPreference != null){
+            upPacketMessage.setUid(userPreference.getUid());
+            upPacketMessage.setSessionId(userPreference.getSessionId());
+        }
+        else{
+            upPacketMessage.setUid(0);
+            upPacketMessage.setSessionId("");
+        }
         upPacketMessage.setServiceName(channelInfo.getChannelId().getChannelServiceName());
         upPacketMessage.setMethodName(channelInfo.getChannelId().getChannelMethodName());
 
@@ -51,7 +61,9 @@ public abstract class MessageProcesser extends MessageChannel implements Process
         Message req = channelInfo.getReqMessage();
         setChannelReqData(channelInfo, req);
         channelInfo.setNextChannel(this);
-        channelInfo.send(req);
+        UpPacketMessage upPacketMessage = new UpPacketMessage();
+        upPacketMessage.setMessage(req);
+        channelInfo.send(upPacketMessage);
     }
 
     @Override
@@ -80,5 +92,22 @@ public abstract class MessageProcesser extends MessageChannel implements Process
 
     public MessageChannelInfo getChannelInfo() {
         return channelInfo;
+    }
+
+    public void resend() throws Exception{
+        channelInfo.send(channelInfo.getReqMessage());
+        resendCount++;
+    }
+
+    public int getResendCount() {
+        return resendCount;
+    }
+
+    public UserPreference getUserPreference() {
+        return userPreference;
+    }
+
+    public void setUserPreference(UserPreference userPreference) {
+        this.userPreference = userPreference;
     }
 }

@@ -57,17 +57,17 @@ public class MD5Util {
             }
             md5 = HexUtil.hex(md5Digest.digest());
         } catch (FileNotFoundException e) {
-            LogUtil.printImE("Can not find the file.", e);
+            LogUtil.printError("Can not find the file.", e);
         } catch (NoSuchAlgorithmException e) {
-            LogUtil.printImE("Can not get md5 or sha256.", e);
+            LogUtil.printError("Can not get md5 or sha256.", e);
         } catch (IOException e) {
-            LogUtil.printImE("Can not read file.", e);
+            LogUtil.printError("Can not read file.", e);
         } finally {
             if (null != fin) {
                 try {
                     fin.close();
                 } catch (IOException e) {
-                    LogUtil.printImE("Can not close fileInputStream.", e);
+                    LogUtil.printError("Can not close fileInputStream.", e);
                 }
             }
         }

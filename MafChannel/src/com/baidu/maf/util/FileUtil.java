@@ -1,18 +1,28 @@
 package com.baidu.maf.util;
 
+import android.os.Environment;
+import android.util.Log;
+
+import com.baidu.maf.com.Constant;
+
 import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.baidu.im.constant.Constant;
 
 public class FileUtil {
     public static final String TAG = "FileUtil";
+    final static int MAX_STRING_LENGTH = 512 * 512; // 262144
 
     // 写数据到SD中的文件
     public static void writeStringToFileInSdkFolder(String fileName, String write_str) {
@@ -130,6 +140,75 @@ public class FileUtil {
                     e1.printStackTrace();
                 }
             }
+        }
+    }
+
+    public static List<String> ReadTxtFile(File file) {
+        List<String> results = new ArrayList<String>();
+        StringBuilder sb = new StringBuilder();
+        if (null != file) {
+            if (file.isDirectory()) {
+                Log.e("FileUitl", "ReadTxtFile The File can not read " + file.getAbsoluteFile());
+            } else {
+                try {
+                    InputStream instream = new FileInputStream(file);
+                    if (instream != null) {
+                        InputStreamReader inputreader = new InputStreamReader(instream);
+                        BufferedReader buffreader = new BufferedReader(inputreader);
+                        String line;
+                        // read line by line
+                        while ((line = buffreader.readLine()) != null) {
+                            int lineLength = line.length();
+                            int nowLength = sb.length();
+                            if (nowLength + lineLength >= MAX_STRING_LENGTH) {
+                                results.add(sb.toString());
+                                sb.delete(0, nowLength);
+                            }
+                            sb.append(line);
+                            sb.append("\n");
+                        }
+                        if (sb.length() > 0) {
+                            results.add(sb.toString());
+                        }
+                        instream.close();
+                    }
+                } catch (java.io.FileNotFoundException e) {
+                    Log.e("FileUitl", "ReadTxtFile The File doesn't not exist.");
+                } catch (IOException e) {
+                    Log.e("ReadTxtFile", e.getMessage());
+                }
+            }
+        } else {
+            Log.e("FileUitl", "ReadTxtFile The File doesn't not exist.");
+        }
+        return results;
+    }
+
+    public static boolean deleteFile(File file) {
+        if (null != file) {
+            long fileIndex = System.currentTimeMillis();
+            File toFile = new File(file.getAbsolutePath() + fileIndex);
+            while (toFile.exists()) {
+                fileIndex++;
+                toFile = new File(file.getAbsolutePath() + fileIndex);
+            }
+            file.renameTo(toFile);
+            if (toFile.delete()) {
+                return true;
+            } else {
+                Log.e("FileUitl", "DeleteFile Can not delete this file. " + file.getAbsolutePath());
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public static File getSDRootFile() {
+        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            return Environment.getExternalStorageDirectory();
+        } else {
+            return null;
         }
     }
 }

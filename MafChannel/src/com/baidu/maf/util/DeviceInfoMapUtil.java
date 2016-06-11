@@ -27,8 +27,8 @@ import android.os.StatFs;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
-import com.baidu.im.frame.inapp.ChannelSdkImpl;
-import com.baidu.im.outapp.network.hichannel.Channelinfo;
+import com.baidu.maf.app.MafChannelSDK;
+import com.baidu.maf.network.jni.Channelinfo;
 
 public class DeviceInfoMapUtil {
 
@@ -407,15 +407,15 @@ public class DeviceInfoMapUtil {
 
         // from sdk
         if (!deviceInfoMap.containsKey(SDK_VER)) {
-            deviceInfoMap.put(SDK_VER, Integer.toString(ChannelSdkImpl.getVersionCode()));
-            LogUtil.printDebug(TAG, "SDK_VER : " + ChannelSdkImpl.getVersionCode());
+            deviceInfoMap.put(SDK_VER, Integer.toString(MafChannelSDK.getVersionCode()));
+            LogUtil.printDebug(TAG, "SDK_VER : " + MafChannelSDK.getVersionCode());
         }
 
         // from session
         if (!deviceInfoMap.containsKey(APP_ID)) {
             deviceInfoMap.put(APP_ID,
                     Integer.toString(GlobalInstance.Instance().preferenceInstace().getInt(PreferenceKey.appId)));
-            LogUtil.printDebug(TAG, "APP_ID : " + ChannelSdkImpl.getVersionCode());
+            LogUtil.printDebug(TAG, "APP_ID : " + MafChannelSDK.getVersionCode());
         }
 
         // from Environment
